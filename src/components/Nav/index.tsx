@@ -40,7 +40,7 @@ function Nav({popular = [], trending = [], upcoming = [],toprated = [], adventur
     
     return (  
         <div className="w-full md:h-[38rem] relative flex items-center px-[1.5rem] md:px-[4.5rem] pb-[2rem] md:pb-0"> 
-            <div className="absolute -top-[1.5rem] md:-top-[3rem] text-white left-[1.5rem] md:left-[6.5rem] text-[1.5rem] md:text-[2.6rem] font-semibold">
+            <div className="absolute -top-[1.8rem] md:-top-[3rem] text-white left-[1.5rem] md:left-[6.5rem] text-[1.5rem] md:text-[2.6rem] font-semibold">
                 {
                     argumentProp === trending ? "Trending" : (argumentProp === popular ? "Popular": (argumentProp === upcoming ? "Upcoming" : argumentProp === toprated ? "Toprated": (argumentProp === adventure ? 'Adventure' : "Animation")))
                 }

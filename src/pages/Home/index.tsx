@@ -114,7 +114,7 @@ function Home() {
                         
                         {
                             newmovie?.length > 0 && (
-                                <div className={`absolute top-[60%] translate-y-[-50%] left-[1.5rem] md:left-[6.5rem] w-[75%] h-[20rem] md:w-[75rem] md:min-h-[35rem] md:max-h-[40rem] z-10 ${contentTransfer ? "opacity-0" : ""} transition-all duration-[1s]`}>
+                                <div className={`absolute top-[55%] translate-y-[-50%] left-[1.5rem] md:left-[6.5rem] w-[75%] h-[20rem] md:w-[75rem] md:min-h-[35rem] md:max-h-[40rem] z-10 ${contentTransfer ? "opacity-0" : ""} transition-all duration-[1s]`}>
                                         <h2 className="text-[2.5rem] md:text-[7rem] font-bold text-white leading-[1]">
                                             {
                                                 currentMovie.title
