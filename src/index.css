@@ -1,0 +1,285 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    font-family: "Playfair Display", serif;
+    font-size: 62.5%;
+    scroll-behavior: 'smooth';
+}
+
+body{
+    font-size: 1.6rem;
+    background-color: #111319;
+}
+
+a{
+    text-decoration: none;
+}
+
+@layer utilities{
+    .heightBody{
+        height: calc(100vh - 8rem);
+    }
+    .hovermenuitem:hover::before{
+        width: 100%;
+        transition: all linear .3s;
+    }   
+    .hoverBorder::before{
+        content: "";
+        position: absolute;
+        width: 0%;
+        height: .3rem;
+        bottom: 0;
+        left: 0;
+        background-color: #00d9ff;
+        transition: all linear .3s;
+    }
+    .hoverBorder:hover::before{
+        width: 100%;
+    }
+
+    .transition{
+        transition: all linear .25s;
+    }
+    .beforeItemMenu::before{
+        content: "";
+        position: absolute;
+        width: 0%;
+        height: .3rem;
+        border-radius: 1rem;
+        bottom: -.4rem;
+        left: 0;
+        background-color: #00d9ff;
+    }
+    .backgroundBorderBlur::before{
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-image: radial-gradient(#ffffff1e, #111319 85%); /* cần xác định hai điểm dùng màu */
+    }
+    
+    .backgroundBlur:before{
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(9, 16, 18, 0.827);
+    }
+    .scroll-snap-type{
+        scroll-snap-type: x mandatory;
+    }   
+    .scroll-snap-start{
+        scroll-snap-align: start;
+    }
+    .scroll-snap-align{
+        scroll-snap-align:center ;
+    }
+    .lineLimit{
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+    /* Kế thừa lại lineLimit và bổ sung thêm một số thuộc tính khác */
+    .lineLimitLg{ 
+        @apply lineLimit;
+        -webkit-line-clamp: 4;
+        line-clamp: 4;
+    }
+    .lineLimitNav{
+        @apply lineLimit;
+        -webkit-line-clamp: 1;
+        line-clamp: 1;
+    }
+    .lineLimitMobile{
+        @apply lineLimit;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+    }
+    .removeScrollbar::-webkit-scrollbar{
+        display: none;
+    }
+    .animationBtnClick::before{
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: #00d9ff;
+        border-radius: 10rem;
+        z-index: -1;
+        animation: bubblePlay linear .6s;
+    }
+
+    @keyframes animationScale {
+        0%{
+            transform: scale(0);
+        }100%{
+            transform: scale(1.4);
+            background-color: #26bdeba0;
+            opacity: .6;
+        }
+    }
+
+    .custom-tippy{
+        animation: scaleExtreme linear .15s;
+    }
+    @keyframes scaleExtreme{
+        0%{
+            opacity: 0;
+            transform: scale(0);
+        }
+        100%{
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+    .scrollImageRight{
+        /* animation: scrollImage .5s linear 1s forwards  */
+        transition: transform 1s linear;
+    }
+    .scrollImageLeft{
+        /* @apply scrollImageRight;
+        transform: translateX(100%);
+         */
+         transition: transform 1s linear;
+    }
+    .hoverFooter:hover{
+        color: #00d9ff;    
+    }
+
+    .animationPlay::before{
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background-color: #00d9ff;
+        animation: bubblePlay 1s linear infinite;
+        z-index: 0;
+    }
+
+    @keyframes bubblePlay{
+        0%{
+            transform: scale(0);
+            opacity: 1;
+        }
+        50%{
+            transform: scale(1.4);
+            opacity: .5;
+        }
+        100%{
+            transform: scale(1.8);
+            opacity: 0;
+        }
+    }
+    .shadowWatch{
+        box-shadow: 0 0 4rem #1c1c1c;
+    }
+    .triangular::after{
+        content: "";
+        position: absolute;
+        /* width: 4rem;
+        height: 4rem; */
+        left: 2rem;
+        top: -2.6rem;
+        border-top: 1.4rem solid transparent;
+        border-left: 1.2rem solid transparent;
+        border-right: 1.2rem solid transparent;
+        border-bottom: 1.4rem solid #111319;
+    }
+    .bglogin::before{
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        /* background-image: linear-gradient(to left top, rgba(255, 0, 0, 0.718), rgba(11, 152, 228, 0.551), rgba(0, 0, 0, 0.455), rgba(251, 12, 12, 0.658)); */
+        /* background-image: linear-gradient(to top right,rgba(255, 0, 0, 0.833), rgba(0, 0, 255, 0.805), rgba(13, 230, 13, 0.827)); */
+        background-image: linear-gradient(to left, rgba(255, 0, 0, 0.532), rgba(0, 0, 255, 0.559));
+        z-index: 20;
+    }
+    .animationInput:focus + label,
+    .animationInput:not(:placeholder-shown) + label{
+        padding: 0 .5rem;
+        backdrop-filter: blur(2rem);
+        top: 0;
+        left: .4rem;
+        font-size: 1.4rem;
+        color: #00d9ff;
+        z-index: 60;
+        transition: all linear .25s;
+    }
+    .loadingAnimationLeft{
+        box-shadow: 0 0 .5rem #000;
+        background-image: linear-gradient(to top left, rgb(23, 255, 23), blue);
+        animation: animationLoadingLeft ease-in-out 1.5s infinite;
+    }
+
+    .loafingAnimationRight{
+        box-shadow: 0 0 .5rem #000;
+        background-image: linear-gradient(to top left, rgb(255, 47, 47),rgb(18, 240, 18));
+        animation: animationLoadingRight ease-in-out 1.5s infinite;
+        animation-delay: 3;
+    }
+
+    @keyframes animationLoadingLeft{
+        0%{
+            transform: translateX(0);
+            z-index: 100;
+        }50%{
+            transform: translateX(100%);
+            z-index: 0;
+        }100%{
+            transform: translateX(0); 
+            z-index: 100;
+        }
+    }
+    @keyframes animationLoadingRight{
+        0%{
+            transform: translateX(0);
+            z-index: 100;
+        }50%{
+            transform: translateX(-100%);
+            z-index: 0;
+        }100%{
+            transform: translateX(0);
+            z-index: 0;
+        }
+    }
+    
+    .youtube-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .blurAvatar::before{
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        background-image: radial-gradient(circle at top, #ffffff00, #111319 95%);
+    }
+    .shadowMoreInfo{
+        box-shadow: 0 0 2rem #111319;
+    }
+}       

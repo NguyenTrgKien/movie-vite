@@ -1,0 +1,36 @@
+import { createSlice } from "@reduxjs/toolkit"
+import { setListgenre } from "./actionListGenre"
+
+export interface listGenreType{
+    page: number,
+    results: [],
+    total_pages: number,
+    total_results: number
+}
+
+export interface listGenreState{
+    listgenre: listGenreType
+}
+
+const initialState: listGenreState = {
+    listgenre: {
+        page: 0,
+        results: [],
+        total_pages: 0,
+        total_results: 0
+    }
+}
+
+const listgenreSlice = createSlice({
+    name: 'listgenre',
+    initialState,
+    reducers:{},
+    extraReducers: (builder) => {
+        builder
+            .addCase(setListgenre.fulfilled, (state = initialState, action) => {
+                state.listgenre = action.payload
+            })
+    }
+})
+
+export default listgenreSlice.reducer;
