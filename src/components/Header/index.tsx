@@ -93,7 +93,7 @@ function Header({theme}: {theme?: string}) {
                         <FontAwesomeIcon icon={faBars} className='text-[1.6rem] text-white'
                             onClick={() => setMenuMobile(prev => !prev)}
                         />
-                        <div className={`fixed w-[60%] h-[100vh] top-0 left-0 bg-bgPrimary translate-x-[-100%] ${menuMobile ? "translate-x-[0]" : "translate-x-[-100%]"} transition-all duration-[.5s]`}>
+                        <div className={`fixed z-[999] w-[60%] h-[100vh] top-0 left-0 bg-bgPrimary translate-x-[-100%] ${menuMobile ? "translate-x-[0]" : "translate-x-[-100%]"} transition-all duration-[.5s]`}>
                             <div className='flex items-center w-full h-[8rem] px-5 bg-primary gap-4'>
                                 <img
                                     src='https://rukminim2.flixcart.com/image/850/1000/xif0q/poster/7/b/g/small-poster-black-black-goku-dragon-ball-super-sl-16904-wall-original-imagm2zjaehqjsmk.jpeg?q=90&crop=false'
@@ -114,7 +114,7 @@ function Header({theme}: {theme?: string}) {
                     </div>
                     <img 
                         src={Logo}
-                        className="w-[6rem] h-[1.8rem] md:w-[10rem] md:h-[3rem] cursor-pointer"
+                        className="w-[7rem] h-[2rem] md:w-[10rem] md:h-[3rem] cursor-pointer"
                     />
                     <Link to='/' className='text-white relative text-[1.6rem] cursor-pointer select-none beforeItemMenu hovermenuitem hover:text-[#ccc] transition hidden md:block'>
                         Home
@@ -184,7 +184,7 @@ function Header({theme}: {theme?: string}) {
                     </Tippy>
                 </div>
                 <div className="ml-[auto] flex items-center gap-x-[1rem] md:gap-x-[2.5rem]">
-                    <div className={`relative bg-transparent w-[20rem] md:w-[35rem] h-[2.8rem] md:h-[3.5rem] rounded-[.2rem] transition-all duration-[20rem] bg-[transparent`}>
+                    <div className={`relative bg-transparent w-[16rem] md:w-[35rem] h-[2.8rem] md:h-[3.5rem] rounded-[.2rem] transition-all duration-[20rem] bg-[transparent`}>
                         <input
                             type='text'
                             className={`w-full h-full md:block rounded-[.2rem] outline-none border-none md:bg-white bg-[#858585] text-white pl-[1rem] text-[1.4rem]`}

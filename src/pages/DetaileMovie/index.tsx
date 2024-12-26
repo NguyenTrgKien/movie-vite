@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Header from "../../components/Header";
-import { faPlay, faShare, faStar } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown, faAngleUp, faPlay, faShare, faStar } from "@fortawesome/free-solid-svg-icons";
 import { Link, useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,9 +19,11 @@ function DetailMovie() {
     const {id} = useParams();// Lấy các id trong các đường dẫn router
     const dispatch = useDispatch<AppDispatch>();
     const context = useContext(dataContext);
+    const [moreOverview, setMoreOverview] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const genre = context.genre;
     const currentLang = context.currentLang;
+    const [isMobile, setIsMobile] = useState(false);
     
     const {detailmovie, similar, cast} = useSelector((state: rootState) => state.detailmovie);
     
@@ -41,6 +43,17 @@ function DetailMovie() {
         }
         fetchData();
     }, [id, dispatch, currentLang]);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 768); // Mobile nếu màn hình <= 768px
+        };
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize',handleResize);
+        }
+    }, []);
 
     if(isLoading){
         return (
@@ -104,16 +117,38 @@ function DetailMovie() {
                                         )
                                     })}
                                 </div>
-                                <div className="text-white mt-[.8rem] text-[1.4rem] md:text-[1.6rem]">
-                                    <span className="text-[#ccc]">Genre: </span>{cast?.length > 0 && (
-                                        cast.map((value: Cast) => {
-                                            return (
-                                                <Link to={`/detailcast/${value.id}`} target="_blank" className="hover:text-primary transition-all duration-[.25s] cursor-pointer">
-                                                    {`${value.name}, `}                                             
-                                                </Link>
+                                <div className="relative">
+                                    <div className={`relative text-white ${moreOverview ? "" : "h-[7.8rem]"}  overflow-hidden mt-[.8rem] text-[1.4rem] md:text-[1.6rem] `}>
+                                        <span className="text-[#ccc] ">Cast: </span>{cast?.length > 0 && (
+                                            cast.map((value: Cast) => {
+                                                return (
+                                                    <Link to={`/detailcast/${value.id}`} target="_blank" className="hover:text-primary transition-all duration-[.25s] cursor-pointer">
+                                                        {`${value.name}, `}                                             
+                                                    </Link>
+                                                )
+                                            })
+                                        )}
+                                    </div>
+                                    {
+                                       (
+                                            moreOverview ? (
+                                            <span className={`absolute flex items-center gap-2 -bottom-[1.8rem] right-0 text-[1.5rem] text-primary p-4 rounded-[50%] ${isMobile ? "shadowMoreInfo bg-bgPrimary" : ""} cursor-pointer`}
+                                            onClick={() => setMoreOverview(prev => !prev)}
+                                            >
+                                                Close
+                                                <FontAwesomeIcon icon={faAngleUp} className="text-[1.2rem] mt-1"/>
+                                            </span>
+                                            ): (
+                                            <span className={`absolute flex items-center gap-2 -bottom-[1.8rem] right-0 text-[1.5rem] text-primary p-4 rounded-[50%] ${isMobile ? "shadowMoreInfo bg-bgPrimary" : ""} cursor-pointer`}
+                                                onClick={() => setMoreOverview(prev => !prev)}
+                                            >
+                                                Xem thêm
+                                                <FontAwesomeIcon icon={faAngleDown} className="text-[1.2rem] mt-1"/>
+                                    
+                                            </span>
                                             )
-                                        })
-                                    )}
+                                        )
+                                        }
                                 </div>
                                 <div className="text-[1.4rem] md:text-[1.6rem] mt-[.8rem] text-white">
                                     <span className="text-[#ccc]">Overview: </span>{detailmovie.overview === '' ? 'Không có mô tả cho bộ phim này!': detailmovie.overview}
