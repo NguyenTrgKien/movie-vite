@@ -9,7 +9,7 @@
 }
 
 html{
-    font-family: "Playfair Display", serif;
+    font-family: "Roboto", sans-serif;
     font-size: 62.5%;
     scroll-behavior: 'smooth';
 }
@@ -21,6 +21,17 @@ body{
 
 a{
     text-decoration: none;
+}
+
+
+input[type = "text"]::placeholder{
+    color: #fff;
+}
+
+@layer base{
+    h2,h3,h4{
+        font-family:'Playfair Display', serif;
+    }
 }
 
 @layer utilities{

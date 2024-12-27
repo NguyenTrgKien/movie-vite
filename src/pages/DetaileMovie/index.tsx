@@ -102,9 +102,9 @@ function DetailMovie() {
                                 </Link>
                             </div>
                             <div className="max-w-[80rem] h-auto z-50 md:mt-0 mt-2 md:px-0 px-[1.5rem]">
-                                <div className="text-[2.8rem] md:text-[6rem] font-bold text-white leading-[1] mb-[1rem]">
+                                <h2 className="text-[2.8rem] md:text-[6rem] font-bold text-white leading-[1] mb-[1rem]">
                                     {detailmovie.title}
-                                </div>
+                                </h2>
                                 <div className="text-[1.4rem] md:text-[1.6rem] text-white flex items-center mt-[.8rem]">
                                     <div className="flex gap-1 items-center pr-4 mr-4 border-r-[.1rem] border-[#ccc]">
                                         <FontAwesomeIcon icon={faStar} className="text-primary"/>

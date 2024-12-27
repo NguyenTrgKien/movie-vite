@@ -13,27 +13,27 @@ const countries = [
     {
         id: 'VN',
         iso_639_1: "vi",
-        name: 'Việt Nam'
+        name: 'VietNam'
     },
     {
         id: 'KR',
         iso_639_1: "ko",
-        name: 'Hàn Quốc'
+        name: 'Korea'
     },
     {
         id: 'US',
         iso_639_1: "en",
-        name: 'Mỹ'
+        name: 'America'
     },
     {
         id: 'CN',
         iso_639_1: "zh",
-        name: 'Trung Quốc'
+        name: 'China'
     },
     {
         id: 'TH',
         iso_639_1: "th",
-        name: 'Thái Lan'
+        name: 'ThaiLand'
     }
 ]
 
@@ -112,10 +112,12 @@ function Header({theme}: {theme?: string}) {
                             </div>
                         </div>
                     </div>
-                    <img 
-                        src={Logo}
-                        className="w-[7rem] h-[2rem] md:w-[10rem] md:h-[3rem] cursor-pointer"
-                    />
+                    <Link to='/'>
+                        <img 
+                            src={Logo}
+                            className="w-[7rem] h-[2rem] md:w-[10rem] md:h-[3rem] cursor-pointer"
+                        />
+                    </Link>
                     <Link to='/' className='text-white relative text-[1.6rem] cursor-pointer select-none beforeItemMenu hovermenuitem hover:text-[#ccc] transition hidden md:block'>
                         Home
                     </Link>
@@ -187,12 +189,12 @@ function Header({theme}: {theme?: string}) {
                     <div className={`relative bg-transparent w-[16rem] md:w-[35rem] h-[2.8rem] md:h-[3.5rem] rounded-[.2rem] transition-all duration-[20rem] bg-[transparent`}>
                         <input
                             type='text'
-                            className={`w-full h-full md:block rounded-[.2rem] outline-none border-none md:bg-white bg-[#858585] text-white pl-[1rem] text-[1.4rem]`}
+                            className={`w-full h-full md:block rounded-[.2rem] outline-none border-none md:bg-[#6363638a] bg-[#858585] text-white pl-[1rem] text-[1.2rem]`}
                             placeholder='Search.......'
                         />
-                        <div className={`absolute w-[4rem] h-[2.8rem] md:h-[3.5rem] bg-[transparent] md:bg-[#d8d8d8] top-0 right-0 flex justify-center items-center rounded-[.2rem] cursor-pointer`} 
+                        <div className={`absolute w-[4rem] h-[2.8rem] md:h-[3.5rem] bg-[transparent] bg-[#6363638a] top-0 right-0 flex justify-center items-center rounded-[.2rem] cursor-pointer`} 
                         >
-                            <FontAwesomeIcon icon={faMagnifyingGlass} className='text-[#000]'/>
+                            <FontAwesomeIcon icon={faMagnifyingGlass} className='text-[#fff]'/>
                         </div>
                     </div>
                     <Tippy
