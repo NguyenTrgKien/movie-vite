@@ -13,6 +13,7 @@ import { setCast, setDetailmovie, setSimilar } from "./actionDetailmovie";
 import { homeType } from "../Home/homeSlice";
 import { Cast, detailmovieType, SimilarType } from "./detailMovieSlice";
 import Loading from "../../components/Loading";
+import ShareMovie from "../../components/ShareMovie";
 
 
 function DetailMovie() {
@@ -24,6 +25,7 @@ function DetailMovie() {
     const genre = context.genre;
     const currentLang = context.currentLang;
     const [isMobile, setIsMobile] = useState(false);
+    const [isShare, setIsShare] = useState(false);
     
     const {detailmovie, similar, cast} = useSelector((state: rootState) => state.detailmovie);
     
@@ -54,6 +56,10 @@ function DetailMovie() {
             window.removeEventListener('resize',handleResize);
         }
     }, []);
+
+    const handleCloseShare = () => {
+        setIsShare(false);
+    }
 
     if(isLoading){
         return (
@@ -132,14 +138,14 @@ function DetailMovie() {
                                     {
                                        (
                                             moreOverview ? (
-                                            <span className={`absolute flex items-center gap-2 -bottom-[1.8rem] right-0 text-[1.5rem] text-primary p-4 rounded-[50%] ${isMobile ? "shadowMoreInfo bg-bgPrimary" : ""} cursor-pointer`}
+                                            <span className={`absolute flex justify-center items-center gap-2 -bottom-[1.8rem] right-0 text-[1rem] text-primary p-4 rounded-[50%] ${isMobile ? "shadowMoreInfo bg-bgPrimary" : ""} cursor-pointer`}
                                             onClick={() => setMoreOverview(prev => !prev)}
                                             >
                                                 Close
                                                 <FontAwesomeIcon icon={faAngleUp} className="text-[1.2rem] mt-1"/>
                                             </span>
                                             ): (
-                                            <span className={`absolute flex items-center gap-2 -bottom-[1.8rem] right-0 text-[1.5rem] text-primary p-4 rounded-[50%] ${isMobile ? "shadowMoreInfo bg-bgPrimary" : ""} cursor-pointer`}
+                                            <span className={`absolute flex justify-center items-center gap-2 -bottom-[1.8rem] right-0 text-[1rem] text-primary p-2 rounded-[50%] ${isMobile ? "shadowMoreInfo bg-bgPrimary" : ""} cursor-pointer`}
                                                 onClick={() => setMoreOverview(prev => !prev)}
                                             >
                                                 Xem thêm
@@ -154,10 +160,19 @@ function DetailMovie() {
                                     <span className="text-[#ccc]">Overview: </span>{detailmovie.overview === '' ? 'Không có mô tả cho bộ phim này!': detailmovie.overview}
                                 </div>
                                 <div className="flex items-center max-w-[28rem] h-[8rem] bg-[#3e3e3e83] rounded-[.5rem] mt-[3rem] p-[1rem] md:p-[2rem]">
-                                    <div className="flex items-center justify-center flex-col h-full w-[5rem] cursor-pointer pr-[2rem] mr-[2rem] border-r-[.1rem] border-[#ccc]">
+                                    <div className="flex items-center justify-center flex-col h-full w-[5rem] cursor-pointer pr-[2rem] mr-[2rem] border-r-[.1rem] border-[#ccc]"
+                                        onClick={() => setIsShare(true)}
+                                    >
                                         <FontAwesomeIcon icon={faShare} className="text-white text-[1.4rem] md:text-[1.6rem]"/>
                                         <span className="text-[1.4rem] md:text-[1.6rem] text-white hover:text-primary transition-all">Share</span>
                                     </div>
+                                    {
+
+                                        isShare && (
+                                            /* window.location.origin lấy domain hiện tại của ứng dụng */
+                                            <ShareMovie url={`${window.location.origin}/detailmovie/${detailmovie.id}`} title="Hãy xem bộ phim này." handleCloseShare={handleCloseShare}/>
+                                        )
+                                    }
                                     <Link to={`/watchmovie/${detailmovie.id}?info=${encodeURIComponent(JSON.stringify({
                                                     title: detailmovie.title,
                                                     date: detailmovie.release_date,

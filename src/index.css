@@ -280,6 +280,6 @@ a{
         background-image: radial-gradient(circle at top, #ffffff00, #111319 95%);
     }
     .shadowMoreInfo{
-        box-shadow: 0 0 2rem #111319;
+        box-shadow: 0 0 4rem #111319;
     }
 }       
