@@ -25,7 +25,7 @@ function ShareMovie({url, title, handleCloseShare}: {url: string, title: string,
     }
     return (  
         <div className="flex justify-center items-center fixed top-0 left-0 w-full h-full bg-[#2d2d2d58] z-[999]">
-            <div className="relative w-[80%] md:min-w-[40rem] h-[30rem] px-4 py-16 md:p-[5rem] bg-[#3a3a3a] rounded-[.8rem]">
+            <div className="relative w-[80%] md:min-w-[40rem] md:max-w-[56rem] h-[30rem] px-4 py-16 md:p-[5rem] bg-[#3a3a3a] rounded-[.8rem]">
                 <div className="text-center text-[2rem] text-white font-semibold mb-8"
                 >
                     Share

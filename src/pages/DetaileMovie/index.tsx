@@ -124,7 +124,7 @@ function DetailMovie() {
                                     })}
                                 </div>
                                 <div className="relative">
-                                    <div className={`relative text-white ${moreOverview ? "" : "h-[7.8rem]"}  overflow-hidden mt-[.8rem] text-[1.4rem] md:text-[1.6rem] `}>
+                                    <div className={`relative text-white ${moreOverview ? "" : "h-[7.7rem]"}  overflow-hidden mt-[.8rem] text-[1.4rem] md:text-[1.6rem] `}>
                                         <span className="text-[#ccc] ">Cast: </span>{cast?.length > 0 && (
                                             cast.map((value: Cast) => {
                                                 return (

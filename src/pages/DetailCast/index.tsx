@@ -133,14 +133,14 @@ function DetailCast() {
                             {
                                 detailcast.biography !== ""  && (
                                     moreOverview ? (
-                                    <span className="absolute flex items-center gap-2 -bottom-[1rem] right-0 text-[1.5rem] text-primary p-4 rounded-[50%] shadowMoreInfo bg-bgPrimary cursor-pointer"
+                                    <span className="absolute flex items-center gap-2 -bottom-[2rem] md:-bottom-[1rem] right-0 text-[1rem] text-primary p-4 rounded-[50%] shadowMoreInfo bg-bgPrimary cursor-pointer"
                                     onClick={() => setMoreOverview(prev => !prev)}
                                     >
                                         Close
                                         <FontAwesomeIcon icon={faAngleUp} className="text-[1.2rem] mt-1"/>
                                     </span>
                                     ): (
-                                    <span className="absolute flex items-center gap-2 -bottom-[1rem] right-0 text-[1.5rem] text-primary p-4 rounded-[50%] shadowMoreInfo bg-bgPrimary cursor-pointer"
+                                    <span className="absolute flex items-center gap-2 -bottom-[2rem] md:-bottom-[1rem] right-0 text-[1rem] text-primary p-4 rounded-[50%] shadowMoreInfo bg-bgPrimary cursor-pointer"
                                         onClick={() => setMoreOverview(prev => !prev)}
                                     >
                                         Xem thêm

@@ -84,7 +84,7 @@ function Header({theme}: {theme?: string}) {
     }
 
     return (  
-        <div className={`w-full h-[7.2rem] md:h-[6.6rem] fixed top-0 left-0 z-[999] flex flex-col md:flex justify-center ${theme === 'dark' || bgHeader ? 'bg-[#000]' : 'bg-[#000] md:bg-[transparent]'} md:py-0 py-[.6rem] px-[1.5rem] md:px-[6.5rem] transition-all duration-[.8s]`}>
+        <div className={`w-full h-[7.2rem] md:h-[6.6rem] fixed top-0 left-0 z-[900] flex flex-col md:flex justify-center ${theme === 'dark' || bgHeader ? 'bg-[#000]' : 'bg-[#000] md:bg-[transparent]'} md:py-0 py-[.6rem] px-[1.5rem] md:px-[6.5rem] transition-all duration-[.8s]`}>
             <div className='flex items-center'>
                 <div className="flex items-center gap-[1rem] md:gap-x-[3rem]">
                     <div className='md:hidden'
@@ -192,7 +192,7 @@ function Header({theme}: {theme?: string}) {
                             className={`w-full h-full md:block rounded-[.2rem] outline-none border-none md:bg-[#6363638a] bg-[#858585] text-white pl-[1rem] text-[1.2rem]`}
                             placeholder='Search.......'
                         />
-                        <div className={`absolute w-[4rem] h-[2.8rem] md:h-[3.5rem] bg-[transparent] bg-[#6363638a] top-0 right-0 flex justify-center items-center rounded-[.2rem] cursor-pointer`} 
+                        <div className={`absolute w-[4rem] h-[2.8rem] md:h-[3.5rem] bg-[transparent] sbg-[#6363638a] top-0 right-0 flex justify-center items-center rounded-[.2rem] cursor-pointer`} 
                         >
                             <FontAwesomeIcon icon={faMagnifyingGlass} className='text-[#fff]'/>
                         </div>

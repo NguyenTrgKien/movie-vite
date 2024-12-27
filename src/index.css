@@ -74,7 +74,9 @@ input[type = "text"]::placeholder{
         position: absolute;
         width: 100%;
         height: 100%;
-        background-image: radial-gradient(#ffffff1e, #111319 85%); /* cần xác định hai điểm dùng màu */
+        top: 0;
+        left: 0;
+        background-image: radial-gradient(circle at top, #ffffff00, #111319); /* cần xác định hai điểm dùng màu */
     }
     
     .backgroundBlur:before{
