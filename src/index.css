@@ -76,7 +76,18 @@ input[type = "text"]::placeholder{
         height: 100%;
         top: 0;
         left: 0;
-        background-image: radial-gradient(circle at top, #ffffff00, #111319); /* cần xác định hai điểm dùng màu */
+        /* background-image: radial-gradient(circle at right, #ffffff00, #111319); cần xác định hai điểm dùng màu */
+        background-image: radial-gradient(circle at right top ,#ffffff00, #111319 100%);
+    }
+
+    .backgroundBorderBlur::after{
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-image: radial-gradient(circle at top ,#ffffff00, #111319 100%);
     }
     
     .backgroundBlur:before{
@@ -98,8 +109,8 @@ input[type = "text"]::placeholder{
     .lineLimit{
         display: -webkit-box;
         -webkit-box-orient: vertical;
-        -webkit-line-clamp: 3;
-        line-clamp: 3;
+        -webkit-line-clamp: 5;
+        line-clamp: 5;
         text-overflow: ellipsis;
         overflow: hidden;
     }
@@ -295,4 +306,6 @@ input[type = "text"]::placeholder{
     .shadowMoreInfo{
         box-shadow: 0 0 4rem #111319;
     }
+
+    
 }       

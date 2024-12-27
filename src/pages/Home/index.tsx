@@ -97,17 +97,17 @@ function Home() {
                         <FontAwesomeIcon icon={faAngleLeft} className="text-[3rem] "/>
                     </div>
                     <div className="relative w-full h-[25rem] md:h-[calc(100vh-6rem)] removeScrollbar overflow-hidden">
-                        <div className='w-full h-[25rem] md:h-[calc(100vh-6rem)] grid grid-flow-col auto-cols-[100%] overflow-hidden removeScrollbar '
+                        <div className='w-full h-[25rem] md:h-[calc(100vh-6rem)] grid grid-flow-col auto-cols-[100%] overflow-hidden removeScrollbar backgroundBorderBlur'
                             ref={elementScroll}
                         >
                             {newmovie?.length > 0 && newmovie.map((img: homeType) => {
                                 return (
-                                    <Link to={`/detailmovie/${img.id}`} key={img.id} target='_blank' className={`w-full h-full backgroundBorderBlur`}>
+                                    <div  key={img.id} className={`w-full h-full`}>
                                         <img
                                             src={`https://image.tmdb.org/t/p/w1280${img.backdrop_path}`}
                                             className='w-full h-full object-cover select-none'
                                         />
-                                    </Link>
+                                    </div>
                                 )
                             })}
                         </div>
@@ -135,7 +135,7 @@ function Home() {
                                                 }
                                             </div>
                                         </div>
-                                        <div className="flex gap-[.5rem] items-center text-[1.2rem] md:text-[1.6rem]">
+                                        <div className="flex gap-[.5rem] items-center text-[1.2rem] md:text-[1.4rem]">
                                             {
                                                 genre && genre.map((it: homeType, index) => {
                                                     if(currentMovie.genre_ids.includes(it.id)){
@@ -147,8 +147,8 @@ function Home() {
                                                 })
                                             }
                                         </div>
-                                        <div className="text-white mt-[.6rem] text-[1.2rem] md:text-[1.6rem] lineLimitMobile md:lineLimitLg">
-                                            <span className="inline-block text-[#ccc] ">Overview:</span> 
+                                        <div className="text-white mt-[.6rem] text-[1.2rem] md:text-[1.4rem] lineLimitMobile md:lineLimitLg">
+                                            <span className="inline-block text-[#ccc] ">Overview: </span> 
                                             {
                                                 currentMovie.overview === "" ? ('Không có mô tả cụ thể nào cho phim này.') : currentMovie.overview
                                             }

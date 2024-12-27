@@ -102,10 +102,10 @@ function DetailMovie() {
                                 </Link>
                             </div>
                             <div className="max-w-[80rem] h-auto z-50 md:mt-0 mt-2 md:px-0 px-[1.5rem]">
-                                <h2 className="text-[2.8rem] md:text-[6rem] font-bold text-white leading-[1] mb-[1rem]">
+                                <h2 className="text-[2.8rem] md:text-[5rem] font-bold text-white leading-[1] mb-[1rem]">
                                     {detailmovie.title}
                                 </h2>
-                                <div className="text-[1.4rem] md:text-[1.6rem] text-white flex items-center mt-[.8rem]">
+                                <div className="text-[1.4rem] text-white flex items-center mt-[.8rem]">
                                     <div className="flex gap-1 items-center pr-4 mr-4 border-r-[.1rem] border-[#ccc]">
                                         <FontAwesomeIcon icon={faStar} className="text-primary"/>
                                         <span >
@@ -116,7 +116,7 @@ function DetailMovie() {
                                         {detailmovie.release_date}
                                     </div>
                                 </div>
-                                <div className="flex items-center text-[1.4rem] md:text-[1.6rem] gap-2 mt-[.8rem]">
+                                <div className="flex items-center text-[1.4rem] gap-2 mt-[.8rem]">
                                     {detailmovie.genres.map((value: {id: number, name: string}) => {
                                         return (
                                             <span key={value.id} className="px-[.6rem] py-1 bg-[#5b5b5b] text-white">{value.name}</span>
@@ -124,7 +124,7 @@ function DetailMovie() {
                                     })}
                                 </div>
                                 <div className="relative">
-                                    <div className={`relative text-white ${moreOverview ? "" : "h-[7.7rem]"}  overflow-hidden mt-[.8rem] text-[1.4rem] md:text-[1.6rem] `}>
+                                    <div className={`relative text-white ${moreOverview ? "" : "h-[6.5rem]"}  overflow-hidden mt-[.8rem] text-[1.4rem]`}>
                                         <span className="text-[#ccc] ">Cast: </span>{cast?.length > 0 && (
                                             cast.map((value: Cast) => {
                                                 return (
@@ -156,15 +156,15 @@ function DetailMovie() {
                                         )
                                         }
                                 </div>
-                                <div className="text-[1.4rem] md:text-[1.6rem] mt-[.8rem] text-white">
+                                <div className="text-[1.4rem] mt-[.8rem] text-white">
                                     <span className="text-[#ccc]">Overview: </span>{detailmovie.overview === '' ? 'Không có mô tả cho bộ phim này!': detailmovie.overview}
                                 </div>
-                                <div className="flex items-center max-w-[28rem] h-[8rem] bg-[#3e3e3e83] rounded-[.5rem] mt-[3rem] p-[1rem] md:p-[2rem]">
+                                <div className="flex items-center max-w-[28rem] h-[7.4rem] bg-[#3e3e3e83] rounded-[.5rem] mt-[3rem] p-[1rem] md:p-[2rem]">
                                     <div className="flex items-center justify-center flex-col h-full w-[5rem] cursor-pointer pr-[2rem] mr-[2rem] border-r-[.1rem] border-[#ccc]"
                                         onClick={() => setIsShare(true)}
                                     >
-                                        <FontAwesomeIcon icon={faShare} className="text-white text-[1.4rem] md:text-[1.6rem]"/>
-                                        <span className="text-[1.4rem] md:text-[1.6rem] text-white hover:text-primary transition-all">Share</span>
+                                        <FontAwesomeIcon icon={faShare} className="text-white text-[1.4rem]"/>
+                                        <span className="text-[1.4rem] text-white hover:text-primary transition-all">Share</span>
                                     </div>
                                     {
 
@@ -180,8 +180,8 @@ function DetailMovie() {
                                                     vote: detailmovie.vote_average,
                                                     genre: genre.filter((it: homeType) => detailmovie.genres.some((value: detailmovieType) => value.id === it.id))
                                                 }))}`} target="_blank" className="inline-flex items-center gap-2 px-10 py-4 rounded-[10rem] bg-[transparent] border-[.1rem] border-primary hover:bg-primary transition-all duration-[.25s] cursor-pointer">
-                                        <FontAwesomeIcon icon={faPlay} className="text-[1.4rem] md:text-[1.8rem] text-white"/>
-                                        <span className="text-[1.5rem] text-white font-semibold">WATCH NOW</span>
+                                        <FontAwesomeIcon icon={faPlay} className="text-[1.4rem] md:text-[1.4rem] text-white"/>
+                                        <span className="text-[1.4rem] text-white font-semibold">WATCH NOW</span>
                                     </Link>
                                 </div>
                             </div>

@@ -40,7 +40,7 @@ function Nav({popular = [], trending = [], upcoming = [],toprated = [], adventur
     
     return (  
         <div className="w-full md:h-[38rem] relative flex items-center px-[1.5rem] md:px-[4.5rem] pb-[2rem] md:pb-0"> 
-            <div className="absolute -top-[1.8rem] md:-top-[3rem] text-white left-[1.5rem] md:left-[6.5rem] text-[1.5rem] md:text-[2.6rem] font-semibold">
+            <div className="absolute -top-[1.8rem] md:-top-[3rem] text-white left-[1.5rem] md:left-[6.5rem] text-[1.8rem] md:text-[2.5rem] font-semibold">
                 {
                     argumentProp === trending ? "Trending" : (argumentProp === popular ? "Popular": (argumentProp === upcoming ? "Upcoming" : argumentProp === toprated ? "Toprated": (argumentProp === adventure ? 'Adventure' : "Animation")))
                 }
@@ -93,7 +93,7 @@ function Nav({popular = [], trending = [], upcoming = [],toprated = [], adventur
                                         item.title || item.name
                                     }
                                 </h3>
-                                <div className="flex items-center mt-[.2rem] text-[1.4rem]">
+                                <div className="flex items-center mt-[.2rem] text-[1.2rem]">
                                     <div>
                                         <FontAwesomeIcon icon={faStar} className="text-primary"/>
                                         <span className="text-white pt-[.2rem] pl-[.1rem]">
@@ -108,24 +108,24 @@ function Nav({popular = [], trending = [], upcoming = [],toprated = [], adventur
                                         }
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-[.5rem] mt-[.2rem]">
+                                <div className="flex items-center gap-[.5rem] overflow-hidden mt-[.6rem]">
                                     {
                                         genre && genre.map((it: homeType, index) => {
                                             if(item.genre_ids.includes(it.id)){
-                                                return (<span key={index} className="text-[1.4rem] px-[.8rem] bg-[#787878] text-white lineLimitNav">{it.name}</span>)
+                                                return (<span key={index} className="text-[1.2rem] px-[.2rem] bg-[#787878] text-white ">{it.name}</span>)
                                             }
                                             return null;
                                         })
                                     }
                                 </div>
-                                <div className="text-[1.4rem] text-white leading-[1.2] mt-[.2rem] lineLimit ">
+                                <div className="text-[1.2rem] text-white leading-[1.2] mt-[.6rem] lineLimit ">
                                     <span className="opacity-[.8]">Overview: </span>
                                     {
                                         item.overview === "" ? 'Không có mô tả cho bộ phim này!': item.overview
                                     }
                                 </div>
-                                <Link to={`/detailmovie/${item.id}`} target="_blank" className="mt-auto text-end text-primary underline hover:text-[#7fd9ff] transition-all duration-[.25s]">
-                                    Chi tiết <FontAwesomeIcon icon={faArrowRightLong} className="text-[1.4rem] "/>
+                                <Link to={`/detailmovie/${item.id}`} target="_blank" className="text-[1.2rem] mt-auto text-end text-primary underline hover:text-[#7fd9ff] transition-all duration-[.25s]">
+                                    Chi tiết <FontAwesomeIcon icon={faArrowRightLong} className="text-[1rem] "/>
                                 </Link>
                             </div>
                         </Link>

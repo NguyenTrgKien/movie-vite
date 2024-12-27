@@ -192,9 +192,9 @@ function Header({theme}: {theme?: string}) {
                             className={`w-full h-full md:block rounded-[.2rem] outline-none border-none md:bg-[#6363638a] bg-[#858585] text-white pl-[1rem] text-[1.2rem]`}
                             placeholder='Search.......'
                         />
-                        <div className={`absolute w-[4rem] h-[2.8rem] md:h-[3.5rem] bg-[transparent] sbg-[#6363638a] top-0 right-0 flex justify-center items-center rounded-[.2rem] cursor-pointer`} 
+                        <div className={`absolute h-[2.8rem] md:h-[3.5rem] bg-[transparent] sbg-[#6363638a] top-0 right-0 flex justify-center items-center rounded-[.2rem] cursor-pointer `} 
                         >
-                            <FontAwesomeIcon icon={faMagnifyingGlass} className='text-[#fff]'/>
+                            <FontAwesomeIcon icon={faMagnifyingGlass} className='text-[#fff] px-5 border-l-[.1rem] border-[#bfbfbf]'/>
                         </div>
                     </div>
                     <Tippy

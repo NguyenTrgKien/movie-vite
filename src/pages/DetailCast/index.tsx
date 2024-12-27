@@ -67,7 +67,7 @@ function DetailCast() {
     }
     
     return (  
-        <div className="w-full h-auto bg-[#111319]">
+        <div className="w-full h-auto bg-[#111319]">    
             <Header/>
             <div className="w-full h-auto md:px-[25rem] pt-[7.2rem] md:pt-[14rem] pb-[10rem]">
             {
@@ -102,12 +102,12 @@ function DetailCast() {
                         </div>
                         <div className="relative md:w-[calc(100%-20rem)] h-auto md:px-0 px-[1.5rem] md:-mt-0 -mt-[8rem]">
                             <h3 className="text-[2.8rem] md:text-[3.5rem] font-semibold text-white">{detailcast.name}</h3>
-                            <div className="flex items-center text-[1.4rem] md:text-[1.8rem] text-[#787878] mt-2">
+                            <div className="flex items-center text-[1.4rem] text-[#787878] mt-2">
                                 <span>Tên gọi khác:</span>
                                 {/* {detailcast.also_known_as.length > 0 && detailcast.also_known_as.find((it: string, index: number) => {if(index === 1) return it})} */}
                             </div>
                             <div className="w-full h-auto flex mt-3">
-                                <div className="text-[1.4rem] md:text-[1.6rem] w-[35%] text-[#787878]">
+                                <div className="text-[1.4rem] w-[35%] text-[#787878]">
                                     <div className="text-white">
                                         <span className="text-[#787878] pr-5">Giới tính:</span> {detailcast.gender === 1 ? 'Nữ' : 'Nam'}
                                     </div>
@@ -115,7 +115,7 @@ function DetailCast() {
                                         <span className="text-[#787878] pr-5">Độ tuổi:</span> {old}
                                     </div>
                                 </div>
-                                <div className="text-[1.4rem] md:text-[1.6rem] w-[65%] text-[#787878]">
+                                <div className="text-[1.4rem] w-[65%] text-[#787878]">
                                     <div className="text-white">
                                         <span className="text-[#787878] pr-5">Nghề Nghiệp:</span>{detailcast.known_for_department}
                                     </div>
@@ -127,7 +127,7 @@ function DetailCast() {
                                     </div>
                                 </div>
                             </div>
-                            <div className={`text-white relative text-[1.4rem] md:text-[1.6rem] ${moreOverview ? "": "h-[7.7rem] lineLimit"}  mt-3`}>
+                            <div className={`text-white relative text-[1.4rem] ${moreOverview ? "": "h-[7.7rem] lineLimit"}  mt-3`}>
                                 {detailcast.biography}
                             </div>
                             {
