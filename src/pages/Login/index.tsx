@@ -19,13 +19,13 @@ function Login({onClose}: {onClose: () => void}) {
             }
         }, []);
     return (  
-        <div className="w-full h-[100vh] fixed flex justify-center items-center top-0 left-0">
+        <div className="w-full h-[100vh] fixed flex justify-center items-center top-0 left-0 loginGradient">
             <div className="absolute top-5 right-5 w-[4rem] h-[4rem] flex justify-center items-center bg-[#5151518b] hover:bg-primary transition-all duration-[.25s] rounded-[.2rem] z-50"
                 onClick={onClose}   
             >
                 <FontAwesomeIcon icon={faXmark} className="text-[3rem] text-[#fff]"/>
             </div>
-            <div className={`absolute w-full h-full bglogin`}>
+            <div className={`md:block hidden absolute w-full h-full md:bglogin`}>
                 <img
                     src={bglogin}
                     className={`absolute top-0 left-0 w-full h-full z-0 object-cover ${login ? "opacity-[1] z-10" : "opacity-0 z-0 "} transition-all duration-[.8s]`}

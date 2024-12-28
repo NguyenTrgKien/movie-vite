@@ -39,8 +39,8 @@ function Nav({popular = [], trending = [], upcoming = [],toprated = [], adventur
     } 
     
     return (  
-        <div className="w-full md:h-[38rem] relative flex items-center px-[1.5rem] md:px-[4.5rem] pb-[2rem] md:pb-0"> 
-            <div className="absolute -top-[1.8rem] md:-top-[3rem] text-white left-[1.5rem] md:left-[6.5rem] text-[1.8rem] md:text-[2.5rem] font-semibold">
+        <div className="w-full md:h-[38rem] relative flex items-center px-[1.5rem] md:px-[4.5rem] pb-[3.5rem] md:pb-0"> 
+            <div className="absolute -top-[1.8rem] md:-top-[3rem] text-white left-[1.5rem] md:left-[6.5rem] text-[1.6rem] md:text-[2.5rem] font-semibold">
                 {
                     argumentProp === trending ? "Trending" : (argumentProp === popular ? "Popular": (argumentProp === upcoming ? "Upcoming" : argumentProp === toprated ? "Toprated": (argumentProp === adventure ? 'Adventure' : "Animation")))
                 }
@@ -51,7 +51,7 @@ function Nav({popular = [], trending = [], upcoming = [],toprated = [], adventur
                 <FontAwesomeIcon icon={faAngleLeft} className="text-[2.4rem] "/>
             </div>
             {/* // grif-auto-flow:column  dùng để set chiều ngang cho các phần tử con nằm theo chiều ngang và kích và kích thước của nó tương thích với nhau để hiển thị trên một layout cha */}
-            <div className="w-[100%] h-auto md:px-[2rem] grid grid-flow-col auto-cols-[calc((100%-3.9rem)/3)] md:auto-cols-[calc((100%-7.9rem)/5)] items-center overflow-x-auto gap-x-[2rem] removeScrollbar"
+            <div className="w-[100%] h-auto md:px-[2rem] grid grid-flow-col auto-cols-[calc((100%-3.2rem)/3)] md:auto-cols-[calc((100%-7.9rem)/5)] items-center overflow-x-auto gap-x-[.8rem] removeScrollbar"
                 ref={elementScroll}
             >
             {/* grid-auto-columns: value : dùng để set kích thước cho các item con*/}

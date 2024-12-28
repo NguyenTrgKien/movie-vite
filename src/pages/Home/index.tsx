@@ -87,7 +87,7 @@ function Home() {
     return (  
         <div className="w-full h-full">
             <Header/>
-            <div className="w-full pt-[7.2rem] md:pt-0 h-auto pb-[6rem]">
+            <div className="w-full pt-[4.8rem] md:pt-0 h-auto pb-[6rem]">
                 <div className="relative w-full h-heightBody pb-[2rem] md:pb-0">
                     <div className="absolute top-[50%] translate-y-[-50%] left-[.4rem] w-[6rem] h-[6rem] bg-[transparent] hidden md:flex justify-center items-center rounded-[50%] z-[10] hover:bg-[#b1b1b1] text-[#737373] hover:text-[#fff] transition-all duration-[.25s]"
                         onClick={() => {
@@ -160,11 +160,11 @@ function Home() {
                                                 overview: currentMovie.overview,
                                                 vote: currentMovie.vote_average,
                                                 genre: genre.filter((it: homeType) => currentMovie.genre_ids.includes(it.id))
-                                            }))}`} target="_blank" className={`relative w-[8rem] h-[3rem] md:w-[14rem] md:h-[6rem] bg-[#26bdeb] rounded-[10rem] flex justify-center items-center gap-[.5rem] hover:bg-[#48d4ff] cursor-pointer `}> 
+                                            }))}`} target="_blank" className={`relative w-[9rem] h-[4rem] md:w-[14rem] md:h-[6rem] border-[.2rem] border-primary rounded-[10rem] flex justify-center items-center gap-[1rem] cursor-pointer hover:bg-primary transition-all duration-[.25s]`}> 
                                                 <div className="">
-                                                    <FontAwesomeIcon icon={faPlay} className="text-[1.5rem] md:text-[3rem] text-[#ffffff]"/>
+                                                    <FontAwesomeIcon icon={faPlay} className="text-[1.4rem] md:text-[2rem] text-[#ffffff]"/>
                                                 </div>
-                                                <div className="text-[1.5rem] md:text-[2rem] font-semibold text-white select-none">
+                                                <div className="text-[1.4rem] md:text-[1.8rem] font-semibold text-white select-none">
                                                     Play
                                                 </div>
                                             </Link>
@@ -174,8 +174,8 @@ function Home() {
                                                 animation="scale"
                                                 className="custom-tippy"
                                             >
-                                                <div className="relative w-[3rem] h-[3rem] md:w-[6.6rem] md:h-[6.5rem] rounded-[50%] flex justify-center items-center bg-[#eaeaea18] group-hover:opacity-[1] transition-all duration-[.25s] hover:bg-[#7e7e7e]">
-                                                    <FontAwesomeIcon icon={faFolder} className="text-[#e7e7e7] text-[1.5rem] md:text-[2.2rem] ml-[.3rem]"/>
+                                                <div className="relative w-[4rem] h-[4rem] md:w-[6.6rem] md:h-[6.5rem] rounded-[50%] flex justify-center items-center bg-[#eaeaea18] group-hover:opacity-[1] transition-all duration-[.25s] hover:bg-[#7e7e7e]">
+                                                    <FontAwesomeIcon icon={faFolder} className="text-[#e7e7e7] text-[1.4rem] md:text-[2.2rem] ml-[.3rem]"/>
                                                 </div>
                                             </Tippy>
                                         </div>

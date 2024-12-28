@@ -1,4 +1,4 @@
-import { faAngleDown, faBars, faGlobe, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown, faAngleLeft, faBars, faGlobe, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import Logo from '../../assets/image/logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useContext, useEffect, useRef, useState } from 'react';
@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import Login from '../../pages/Login';
 import Loading from '../Loading';
 import { languageType } from '../Context/contextSlice';
+
 
 const countries = [
     {
@@ -47,6 +48,7 @@ function Header({theme}: {theme?: string}) {
     const [isLoading, setIsLoaing] = useState(false);
     const listGenre = context.genre;
     const language = context.language;
+    const [showLanguage, setShowLanguage] = useState(false);
     
     useEffect(() => {
         const handleScroll = () => {
@@ -84,7 +86,7 @@ function Header({theme}: {theme?: string}) {
     }
 
     return (  
-        <div className={`w-full h-[7.2rem] md:h-[6.6rem] fixed top-0 left-0 z-[900] flex flex-col md:flex justify-center ${theme === 'dark' || bgHeader ? 'bg-[#000]' : 'bg-[#000] md:bg-[transparent]'} md:py-0 py-[.6rem] px-[1.5rem] md:px-[6.5rem] transition-all duration-[.8s]`}>
+        <div className={`w-full h-[4.8rem] md:h-[6.6rem] fixed top-0 left-0 z-[900] flex flex-col md:flex justify-center ${theme === 'dark' || bgHeader ? 'bg-[#000]' : 'bg-[#000] md:bg-[transparent]'} md:py-0 py-[.6rem] px-[1.5rem] md:px-[6.5rem] transition-all duration-[.8s]`}>
             <div className='flex items-center'>
                 <div className="flex items-center gap-[1rem] md:gap-x-[3rem]">
                     <div className='md:hidden'
@@ -93,7 +95,15 @@ function Header({theme}: {theme?: string}) {
                         <FontAwesomeIcon icon={faBars} className='text-[1.6rem] text-white'
                             onClick={() => setMenuMobile(prev => !prev)}
                         />
-                        <div className={`fixed z-[999] w-[60%] h-[100vh] top-0 left-0 bg-bgPrimary translate-x-[-100%] ${menuMobile ? "translate-x-[0]" : "translate-x-[-100%]"} transition-all duration-[.5s]`}>
+                        {
+                            menuMobile && (
+                                <div className='fixed top-0 left-0 w-full h-full bg-[#31313172] z-0'
+                                    onClick={() => setMenuMobile(false)}
+                                >
+                                </div>
+                            )
+                        }
+                        <div className={`fixed z-[999] w-[80%] h-[100vh] top-0 left-0 bg-bgPrimary translate-x-[-100%] ${menuMobile ? "translate-x-[0]" : "translate-x-[-100%]"} transition-all duration-[.5s] overflow-y-auto`}>
                             <div className='flex items-center w-full h-[8rem] px-5 bg-primary gap-4'>
                                 <img
                                     src='https://rukminim2.flixcart.com/image/850/1000/xif0q/poster/7/b/g/small-poster-black-black-goku-dragon-ball-super-sl-16904-wall-original-imagm2zjaehqjsmk.jpeg?q=90&crop=false'
@@ -101,20 +111,80 @@ function Header({theme}: {theme?: string}) {
                                 />
                                 <span>User127654r</span>
                             </div>
-                            <div className='px-5 py-5 text-[1.6rem] text-white'>
-                                Cài đặt cá nhân
+                            <div className='px-5 py-5 text-[1.9rem] text-[#cfcece] border-b-[.1rem] border-[#444444]'>
+                                New movie
                             </div>
-                            <div className='px-5 py-5 text-[1.6rem] text-primary'>
+                            <div className='px-5 py-5 text-[1.9rem] text-primary border-b-[.1rem] border-[#444444]'
+                                onClick={() => setShowLanguage(true)}
+                            >
                                 Language
                             </div>
-                            <div className='px-5 py-5 text-[1.6rem] text-white'>
-                                Phim mới nhất
+                            <div className='px-5 py-5 text-[1.9rem] text-[#cfcece] border-b-[.1rem] border-[#444444]'>
+                                Genre
+                                {
+                                    <div className='flex items-start'>
+                                        <div className='pr-24 border-r-[.1rem] border-[#393939]'>
+                                        {
+                                            listGenre.length > 0 && listGenre.map((value, index) => {
+                                                if(index >= 10){return;}    
+                                                return (
+                                                    <Link key={value.id} to={`/listgenre/${value.id}?name=${value.name}`} target='_blank' className='relative text-[1.4rem] text-[#747474] block py-3 hover:text-primary hover:cursor-pointer hoverBorder transition-all duration-[.25s]'>- {value.name}</Link>
+                                                )
+                                            })
+                                        }
+                                        </div>
+                                        <div className='pl-6'>
+                                        {
+                                            listGenre.length > 0 && listGenre.map((value, index) => {
+                                                if(index < 10){return;}
+                                                return (
+                                                    <Link key={value.id} to={`/listgenre/${value.id}?name=${value.name}}`} target='_blank' className='relative text-[1.4rem] text-[#747474] block py-3 hover:text-primary hover:cursor-pointer hoverBorder transition-all duration-[.25s]'>- {value.name}</Link>
+                                                )
+                                            })
+                                        }
+                                        </div>
+                                    </div>
+                                }
                             </div>
-                            <div className='px-5 py-5 text-[1.6rem] text-white'>
+                            <div className='px-5 py-5 text-[1.6rem] overflow-hidden text-[#cfcece] border-b-[.1rem] border-[#444444]'>
+                                Country
+                                <div className='text-center'>
+                                        {
+                                            countries.map((value) => {
+                                                return (
+                                                    <Link key={value.id} to={`/genrecountry/${value.id}?name=${value.name}`} target='_blank' className='relative block py-3 text-[1.4rem] text-[#747474] hover:text-primary hover:cursor-pointer hoverBorder transition-all duration-[.25s]'>{value.name}</Link>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                            </div>
+                            <div className='px-5 py-5 text-[1.9rem] text-[#cfcece] border-b-[.1rem] border-[#444444]'>
                                 Bộ sưu tập
                             </div>
-                            <div className='px-5 py-5 text-[1.6rem] text-white'>
+                            <div className='px-5 py-5 text-[1.9rem] text-[#cfcece] border-b-[.1rem] border-[#444444]'>
                                 Lịch sử xem
+                            </div>
+                        </div>
+                        <div className={`fixed ${showLanguage ? "translate-x-[0]" : "translate-x-[-100%]"} top-0 left-0 w-full h-auto z-[999] py-16 text-center bg-bgPrimary transition-all duration-[.25s]`}>
+                            <FontAwesomeIcon icon={faAngleLeft} className='absolute top-6 left-6 text-[1.9rem] text-white'
+                                onClick={() => setShowLanguage(false)}
+                            />
+                            <div className=' w-full h-[100vh] overflow-y-scroll' >
+                                {
+                                    language?.length > 0 && language.map((lang: languageType) => {
+                                        if(lang?.name === '') return;
+                                        return (
+                                            <Link to={`/`} key={lang.iso_639_1} className='relative block py-6 text-[1.8rem] text-white hover:cursor-pointer transition-all duration-[.25s]'
+                                                onClick={() => {
+                                                    setShowLanguage(false);
+                                                    handleLanguage(lang.iso_639_1)
+                                                }}
+                                            >
+                                                {lang.name}
+                                            </Link>
+                                        )
+                                    })
+                                }
                             </div>
                         </div>
                     </div>
@@ -171,7 +241,7 @@ function Header({theme}: {theme?: string}) {
                         render={(attrs) => {
                             return (
                                 <div {...attrs} className='relative min-w-[20rem] h-auto bg-[#111319] text-white py-2 px-6 triangular rounded-[.6rem] shadow-sm shadow-[#313131]'>
-                                    <div className=''>
+                                    <div>
                                         {
                                             countries.map((value) => {
                                                 return (
@@ -227,7 +297,6 @@ function Header({theme}: {theme?: string}) {
                         <div className='flex-col text-white hover:text-[#ccc] transition hidden md:flex'>
                             <FontAwesomeIcon icon={faGlobe} />
                             <div className='text-[1.6rem] select-none'>
-                                {/* {language.slice(3)} */}
                                 Language
                             </div>
                         </div>
@@ -247,72 +316,6 @@ function Header({theme}: {theme?: string}) {
                     </div>
                     {isLoading && <Loading/>}
                     {showLogin && <Login onClose={handleCloseLogin} />}
-                </div>
-            </div>
-            <div className='md:hidden w-full h-[2.5rem] flex items-center gap-8 mt-auto'>
-                <div className='text-white text-[1.5rem]'>
-                    For you
-                </div>
-                <Tippy
-                    placement='bottom-start'
-                    interactive={true}
-                    render={(attr) => {
-                        return (
-                            <div {...attr} className='relative flex gap-12 min-w-[20rem] h-auto bg-[#111319] text-white py-2 px-6 triangular rounded-[.6rem] shadow-sm shadow-[#313131]'>
-                            <div className='pr-12 py-3 border-r-[.1rem] border-[#393939]'>
-                                {
-                                    listGenre.length > 0 && listGenre.map((value, index) => {
-                                        if(index >= 10){return;}    
-                                        return (
-                                            <Link key={value.id} to={`/listgenre/${value.id}?name=${value.name}`} target='_blank' className='relative block py-3 md:hover:text-primary hover:cursor-pointer md:hoverBorder transition-all duration-[.25s]'>{value.name}</Link>
-                                        )
-                                    })
-                                }
-                            </div>
-                            <div>
-                                {
-                                    listGenre.length > 0 && listGenre.map((value, index) => {
-                                        if(index < 10){return;}
-                                        return (
-                                            <Link key={value.id} to={`/listgenre/${value.id}?name=${value.name}}`} target='_blank' className='relative block py-3 hover:text-primary hover:cursor-pointer hoverBorder transition-all duration-[.25s]'>{value.name}</Link>
-                                        )
-                                    })
-                                }
-                            </div>
-                        </div>
-                        )
-                    }}
-                >
-                    <div className='text-[#ccc] text-[1.5rem]'>
-                        Genre
-                    </div>
-                </Tippy>
-                <Tippy
-                    placement='bottom-start'
-                    interactive={true}
-                    render={(attr) => {
-                        return (
-                            <div {...attr} className='relative min-w-[20rem] h-auto bg-[#111319] text-white py-2 px-6 triangular rounded-[.6rem] shadow-sm shadow-[#313131]'>
-                                    <div className=''>
-                                        {
-                                            countries.map((value) => {
-                                                return (
-                                                    <Link key={value.id} to={`/genrecountry/${value.id}?name=${value.name}`} target='_blank' className='relative block py-3 md:hover:text-primary hover:cursor-pointer md:hoverBorder transition-all duration-[.25s]'>{value.name}</Link>
-                                                )
-                                            })
-                                        }
-                                    </div>
-                                </div>
-                        )
-                    }}
-                >
-                    <div className='text-[#ccc] text-[1.5rem]'>
-                        Country
-                    </div>
-                </Tippy>
-                
-                <div className='text-[#ccc] text-[1.5rem]'>
-                    
                 </div>
             </div>
         </div>
