@@ -17,7 +17,6 @@ import { dataContext } from '../../components/Context';
 function Home() {
     const [isLoading, setIsLoading] = useState(true);
     const [index, setIndex] = useState(0);
-    const [transitioning, setTransitioning] = useState(false);
     const [contentTransfer, setContentTransfer] = useState(false);
     const elementScroll = useRef<HTMLDivElement | null>(null);
     const dispatch = useDispatch<AppDispatch>();
@@ -46,36 +45,34 @@ function Home() {
     const currentMovie: homeType = newmovie[index];
 
     const handleScroll = (direc: string) => {
-        if(transitioning) return;
         const element = elementScroll.current;
         if(element){
-            const {clientWidth} = element;
             if(direc === 'right'){
-                setTransitioning(true);
                 setContentTransfer(true);
                 setTimeout(() => {
-                    element.scrollBy({
-                        left: clientWidth,
-                        behavior: 'smooth',
-                    })  
-                    setIndex(prev => Math.min(prev + 1, newmovie.length - 1));
+                    setIndex((prev) => {
+                        if(prev === newmovie.length - 1){
+                            return prev = 0;
+                        }else{
+                            return prev = prev + 1;
+                        }
+                    });
                     setContentTransfer(false);
                 }, 500);
             }else if(direc === 'left'){
-                setTransitioning(true);
                 setContentTransfer(true);
                 setTimeout(() => {
-                    element.scrollBy({
-                        left: -clientWidth,
-                        behavior: 'smooth',
-                    })
-                    setIndex(prev => Math.max(prev - 1, 0));
+                    setIndex((prev) => {
+                        if(prev === 0){
+                            return prev = newmovie.length - 1;
+                        }else{
+                            return prev = prev - 1;
+                        }
+                    });
                     setContentTransfer(false);
                 },500);
             }
-            setTimeout(() => {
-                setTransitioning(false);
-            }, 500);
+            
         }
     }
 
@@ -89,27 +86,21 @@ function Home() {
             <Header/>
             <div className="w-full pt-[4.8rem] md:pt-0 h-auto pb-[6rem]">
                 <div className="relative w-full h-heightBody pb-[2rem] md:pb-0">
-                    <div className="absolute top-[50%] translate-y-[-50%] left-[.4rem] w-[6rem] h-[6rem] bg-[transparent] hidden md:flex justify-center items-center rounded-[50%] z-[10] hover:bg-[#b1b1b1] text-[#737373] hover:text-[#fff] transition-all duration-[.25s]"
+                    <div className="absolute top-[50%] translate-y-[-50%] left-[.4rem] w-[5rem] h-[5rem] bg-[transparent] hidden md:flex justify-center items-center rounded-[50%] z-[10] border-[.1rem] border-[#565656] hover:border-primary transition-all duration-[.25s] group"
                         onClick={() => {
                             handleScroll('left')
                         }}
                     >
-                        <FontAwesomeIcon icon={faAngleLeft} className="text-[3rem] "/>
+                        <FontAwesomeIcon icon={faAngleLeft} className="text-[2.2rem] text-[#818181] group-hover:text-white"/>
                     </div>
                     <div className="relative w-full h-[25rem] md:h-[calc(100vh-6rem)] removeScrollbar overflow-hidden">
-                        <div className='w-full h-[25rem] md:h-[calc(100vh-6rem)] grid grid-flow-col auto-cols-[100%] overflow-hidden removeScrollbar backgroundBorderBlur'
+                        <div className={`w-full h-[25rem] md:h-[calc(100vh-6rem)] grid grid-flow-col auto-cols-[100%] overflow-hidden removeScrollbar backgroundBorderBlur ${contentTransfer ? "opacity-[.4] " : "opacity-[1]"} transition-all duration-[.5s]`}
                             ref={elementScroll}
                         >
-                            {newmovie?.length > 0 && newmovie.map((img: homeType) => {
-                                return (
-                                    <div  key={img.id} className={`w-full h-full`}>
-                                        <img
-                                            src={`https://image.tmdb.org/t/p/w1280${img.backdrop_path}`}
-                                            className='w-full h-full object-cover select-none'
-                                        />
-                                    </div>
-                                )
-                            })}
+                            <img
+                                src={`https://image.tmdb.org/t/p/w1280${currentMovie.backdrop_path}`}
+                                className={`w-full h-full object-cover select-none `}
+                            />
                         </div>
                         
                         {
@@ -160,7 +151,7 @@ function Home() {
                                                 overview: currentMovie.overview,
                                                 vote: currentMovie.vote_average,
                                                 genre: genre.filter((it: homeType) => currentMovie.genre_ids.includes(it.id))
-                                            }))}`} target="_blank" className={`relative w-[9rem] h-[4rem] md:w-[14rem] md:h-[6rem] border-[.2rem] border-primary rounded-[10rem] flex justify-center items-center gap-[1rem] cursor-pointer hover:bg-primary transition-all duration-[.25s]`}> 
+                                            }))}`} target="_blank" className={`relative w-[9rem] h-[4rem] md:w-[14rem] md:h-[6rem] border-[.1rem] border-primary rounded-[10rem] flex justify-center items-center gap-[1rem] cursor-pointer md:hover:bg-primary transition-all duration-[.25s]`}> 
                                                 <div className="">
                                                     <FontAwesomeIcon icon={faPlay} className="text-[1.4rem] md:text-[2rem] text-[#ffffff]"/>
                                                 </div>
@@ -170,7 +161,7 @@ function Home() {
                                             </Link>
                                             <Tippy 
                                                 placement="right"
-                                                content="Bộ sưu tập"
+                                                content="Sưu tập"
                                                 animation="scale"
                                                 className="custom-tippy"
                                             >
@@ -183,12 +174,24 @@ function Home() {
                             )
                         }
                     </div>
-                    <div className="absolute top-[50%] translate-y-[-50%] right-[.4rem] w-[6rem] h-[6rem] bg-[transparent] hidden md:flex justify-center items-center rounded-[50%] z-[10] text-[#737373] hover:bg-[#b1b1b1] hover:text-[#fff] transition-all duration-[.25s]"
+                    <div className='md:hidden absolute bottom-12 right-6 flex items-center gap-5'>
+                        <div className='w-[4rem] h-[4rem] border-[.1rem] border-[#565656] flex justify-center items-center rounded-[50%]'
+                            onClick={() => handleScroll("left")}
+                        >
+                            <FontAwesomeIcon icon={faAngleLeft} className='textx-[1.5rem] text-[#9b9b9b]'/>
+                        </div>
+                        <div className='w-[4rem] h-[4rem] border-[.1rem] border-[#565656] flex justify-center items-center rounded-[50%]'
+                            onClick={() => handleScroll("right")}
+                        >
+                            <FontAwesomeIcon icon={faAngleRight} className='textx-[1.5rem] text-[#9b9b9b]'/>
+                        </div>
+                    </div>
+                    <div className="absolute top-[50%] translate-y-[-50%] right-[.4rem] w-[5rem] h-[5rem] bg-[transparent] hidden md:flex justify-center items-center rounded-[50%] z-[10] border-[.1rem] border-[#565656] hover:border-primary transition-all duration-[.25s] group"
                         onClick={() => {
                             handleScroll('right')
                         }}
                     >
-                        <FontAwesomeIcon icon={faAngleRight} className="text-[3rem] "/>
+                        <FontAwesomeIcon icon={faAngleRight} className="text-[2.2rem] text-[#818181] group-hover:text-white"/>
                     </div>
                 </div>
                 <div className="w-full md:h-[38rem] md:relative md:-top-[6rem]">

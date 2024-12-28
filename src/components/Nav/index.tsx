@@ -45,13 +45,13 @@ function Nav({popular = [], trending = [], upcoming = [],toprated = [], adventur
                     argumentProp === trending ? "Trending" : (argumentProp === popular ? "Popular": (argumentProp === upcoming ? "Upcoming" : argumentProp === toprated ? "Toprated": (argumentProp === adventure ? 'Adventure' : "Animation")))
                 }
             </div>
-            <div className=" absolute top-[50%] translate-y-[-50%] left-[1.4rem] w-[4.5rem] h-[4.5rem] bg-[transparent] hidden md:flex justify-center items-center rounded-[50%]  hover:bg-[#b1b1b1] text-[#737373] hover:text-[#fff] transition-all duration-[.25s] z-30"
+            <div className=" absolute top-[50%] translate-y-[-50%] left-[1.4rem] w-[4.5rem] h-[4.5rem] bg-[transparent] hidden md:flex justify-center items-center rounded-[50%] border-[.1rem] border-[#565656] hover:border-primary transition-all duration-[.25s] z-30 group"
                 onClick={() => handleScroll('left')}
             >
-                <FontAwesomeIcon icon={faAngleLeft} className="text-[2.4rem] "/>
+                <FontAwesomeIcon icon={faAngleLeft} className="text-[2.2rem] text-[#818181] group-hover:text-white"/>
             </div>
             {/* // grif-auto-flow:column  dùng để set chiều ngang cho các phần tử con nằm theo chiều ngang và kích và kích thước của nó tương thích với nhau để hiển thị trên một layout cha */}
-            <div className="w-[100%] h-auto md:px-[2rem] grid grid-flow-col auto-cols-[calc((100%-3.2rem)/3)] md:auto-cols-[calc((100%-7.9rem)/5)] items-center overflow-x-auto gap-x-[.8rem] removeScrollbar"
+            <div className="w-[100%] h-auto md:px-[2rem] grid grid-flow-col auto-cols-[calc((100%-3.2rem)/3)] md:auto-cols-[calc((100%-7.9rem)/5)] items-center overflow-x-auto gap-x-[.8rem] md:gap-x-[2rem] removeScrollbar"
                 ref={elementScroll}
             >
             {/* grid-auto-columns: value : dùng để set kích thước cho các item con*/}
@@ -77,7 +77,7 @@ function Nav({popular = [], trending = [], upcoming = [],toprated = [], adventur
                                     <Tippy 
                                         placement="top-end"
                                         interactive={true}
-                                        content="Bộ sưu tập"
+                                        content="Sưu tập"
                                         className="custom-tippy"
                                     >
                                         <div className="relative w-[4rem] h-[4rem] rounded-[50%] flex justify-center items-center bg-[#eaeaea] opacity-0 group-hover:opacity-[1] transition-all duration-[.25s] hover:bg-[#f4f4f4]">
@@ -134,10 +134,10 @@ function Nav({popular = [], trending = [], upcoming = [],toprated = [], adventur
             }
             </div>
             
-            <div className="absolute top-[50%] translate-y-[-50%] right-[1.6rem] w-[4.5rem] h-[4.5rem] bg-[transparent] hidden md:flex justify-center items-center rounded-[50%]  hover:bg-[#b1b1b1] text-[#737373] hover:text-[#fff] transition-all duration-[.25s] z-30"
+            <div className="absolute top-[50%] translate-y-[-50%] right-[1.6rem] w-[4.5rem] h-[4.5rem] bg-[transparent] hidden md:flex justify-center items-center rounded-[50%] border-[.1rem] border-[#565656] hover:border-primary transition-all duration-[.25s] z-30 group"
                 onClick={() => handleScroll('right')}
             >
-                <FontAwesomeIcon icon={faAngleRight} className="text-[2.4rem]"/>
+                <FontAwesomeIcon icon={faAngleRight} className="text-[2.2rem] text-[#818181] group-hover:text-white"/>
             </div>
         </div>        
         

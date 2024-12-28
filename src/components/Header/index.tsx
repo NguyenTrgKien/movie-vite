@@ -49,7 +49,7 @@ function Header({theme}: {theme?: string}) {
     const listGenre = context.genre;
     const language = context.language;
     const [showLanguage, setShowLanguage] = useState(false);
-    
+    const currentLang = context.currentLang;    
     useEffect(() => {
         const handleScroll = () => {
             if(window.scrollY >= 100){
@@ -117,7 +117,9 @@ function Header({theme}: {theme?: string}) {
                             <div className='px-5 py-5 text-[1.9rem] text-primary border-b-[.1rem] border-[#444444]'
                                 onClick={() => setShowLanguage(true)}
                             >
-                                Language
+                                {
+                                    language?.length > 0 && language.find((it) => it.iso_639_1 === currentLang)?.english_name || "English"
+                                }
                             </div>
                             <div className='px-5 py-5 text-[1.9rem] text-[#cfcece] border-b-[.1rem] border-[#444444]'>
                                 Genre
