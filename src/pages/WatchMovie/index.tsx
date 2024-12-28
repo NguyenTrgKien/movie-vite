@@ -25,10 +25,10 @@ function WatchMovie() {
     const currentLang = context.currentLang;
     const [comment, setComment] = useState("");
     const [commentReply, setCommentReply] = useState("");
-    const [postCommentReply, setPostCommentReply] = useState<{content: string, isLike: boolean, isReply: boolean}[]>([]);
+    
     const [showReply, setShowReply] = useState(false);
-    const [postComment, setPostComment] = useState<{content: string, isLike: boolean, isReply: boolean}[]>([]);
-    console.log(postCommentReply);
+    const [postComment, setPostComment] = useState<{content: string, isLike: boolean, isReply: boolean, contentReply: {content: string, isLike: boolean}[]}[]>([]);
+    
     
     useEffect(() => {
         if(id){
@@ -38,11 +38,11 @@ function WatchMovie() {
     },[id, dispatch, currentLang]);
     
     const handlePostComment = (value: string) => {
-        setPostComment(prev => [...prev, {content: value, isLike: false, isReply: false}]);
+        setPostComment(prev => [ {content: value, isLike: false, isReply: false, contentReply: []},...prev]);
     }
 
-    const handlePostCommentReply = (value: string) => {
-        setPostCommentReply(prev => [...prev, {content: value, isLike: false, isReply: false}])
+    const handlePostCommentReply = (content: string, i: number) => {
+        setPostComment(prev => prev.map((it, index) => index === i ? {...it, contentReply: [...it.contentReply, {content: content, isLike: false}]} : it));
     }
 
     const handleLike = (value: number) => {
@@ -51,6 +51,26 @@ function WatchMovie() {
 
     const handleReply = (value: number) => {
         setPostComment(prev => prev.map((reply, index) => value === index && reply.isReply === false ? {...reply, isReply: true} : {...reply, isReply: false}));
+    }
+
+    const handleLikeReply = (postComment: string, reply: string) => {
+        setPostComment(prev => prev.map((post) => {
+            if(post.content === postComment){
+                return {
+                    ...post,
+                    contentReply: post.contentReply.map((item) => {
+                        if(item.content === reply){
+                            return {
+                                ...item,
+                                isLike: !item.isLike
+                            }
+                        }
+                        return item;
+                    })
+                }
+            }
+            return post;
+        }))
     }
     
     return (  
@@ -135,10 +155,10 @@ function WatchMovie() {
                             </div>
                             <div>
                                 <div className="relative flex items-start mt-[2rem]">
-                                    <div className="w-[3.8rem] h-[3.8rem] md:w-[4rem] md:h-[4rem] rounded-[50%] border-[.1rem]">
+                                    <div className="w-[4rem] h-[4rem] border-[.1rem] border-[#686868] md:w-[4.6rem] md:h-[4.6rem] rounded-[50%]">
                                         <img
-                                            src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/734e81d8-ee56-406d-a6ad-65a68916da85/dgmoq0q-1b62c95c-62f3-4368-846d-90bde1931734.jpg/v1/fill/w_894,h_894,q_70,strp/dragon_ball_goku_wallpaper__by_vnedit_dgmoq0q-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTAyNCIsInBhdGgiOiJcL2ZcLzczNGU4MWQ4LWVlNTYtNDA2ZC1hNmFkLTY1YTY4OTE2ZGE4NVwvZGdtb3EwcS0xYjYyYzk1Yy02MmYzLTQzNjgtODQ2ZC05MGJkZTE5MzE3MzQuanBnIiwid2lkdGgiOiI8PTEwMjQifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.MwlI35PHuNBXbpDweVwUJofj0mYQpMiZjJ9oIXam4tQ"
-                                            className="w-full h-full rounded-[50%]"
+                                            src="https://media-cldnry.s-nbcnews.com/image/upload/rockcms/2024-07/240716-Elon-Musk-ch-1125-69ea28.jpg"
+                                            className="w-full h-full rounded-[50%] object-cover"
                                         />
                                     </div>
                                     <textarea placeholder="Post comment..." maxLength={200} className="w-[calc(100%-5rem)] text-[1.4rem] h-[5rem] md:h-[8rem] pt-3 pl-[1.5rem] bg-[transparent] border-[.1rem] border-[#565656] text-white ml-4 resize-none outline-none focus:border-[#00d9ff] rounded-[.4rem]"
@@ -168,129 +188,125 @@ function WatchMovie() {
                                 </div>
                             
                             </div>
-                        </div>
-                        <div className="w-full px-[1.5rem] md:w-[75%] h-auto mt-[2rem]">
-                            {
-                                postComment?.length > 0 && postComment.map((post, index) => {
-                                    return (
-                                        <div className="flex items-start gap-4 w-full h-auto  mt-8 ">
-                                            <img
-                                                src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/734e81d8-ee56-406d-a6ad-65a68916da85/dgmoq0q-1b62c95c-62f3-4368-846d-90bde1931734.jpg/v1/fill/w_894,h_894,q_70,strp/dragon_ball_goku_wallpaper__by_vnedit_dgmoq0q-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTAyNCIsInBhdGgiOiJcL2ZcLzczNGU4MWQ4LWVlNTYtNDA2ZC1hNmFkLTY1YTY4OTE2ZGE4NVwvZGdtb3EwcS0xYjYyYzk1Yy02MmYzLTQzNjgtODQ2ZC05MGJkZTE5MzE3MzQuanBnIiwid2lkdGgiOiI8PTEwMjQifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.MwlI35PHuNBXbpDweVwUJofj0mYQpMiZjJ9oIXam4tQ"
-                                                className="w-[3.8rem] h-[3.8rem] md:w-[4rem] md:h-[4rem] rounded-[50%] object-cover"
-                                            />
-                                            <div className="w-full h-auto overflow-hidden pb-[2rem] border-b-[.1rem] border-[#565656]">
-                                                <h5 className="text-[#8a8a8a]">
-                                                    Elon Musk
-                                                </h5>
-                                                {/* break-word tự xuống dòng */}
-                                                <div className="w-full h-auto text-[1.4rem] break-words text-white">
+                            <div className="w-full md:w-[75%] h-auto mt-[2rem]">
+                                {
+                                    postComment?.length > 0 && postComment.map((post, index) => {
+                                        return (
+                                            <div className="flex items-start gap-4 w-full h-auto  mt-8 ">
+                                                <img
+                                                    src="https://media-cldnry.s-nbcnews.com/image/upload/rockcms/2024-07/240716-Elon-Musk-ch-1125-69ea28.jpg"
+                                                    className="w-[4rem] h-[4rem] md:w-[4.6rem] md:h-[4.6rem] rounded-[50%] object-cover"
+                                                />
+                                                <div className="w-full h-auto overflow-hidden pb-[2rem] border-b-[.1rem] border-[#565656]">
+                                                    <h5 className="text-[#8a8a8a]">
+                                                        Elon Musk
+                                                    </h5>
+                                                    {/* break-word tự xuống dòng */}
+                                                    <div className="w-full h-auto text-[1.4rem] break-words text-white">
+                                                        {
+                                                            post.content
+                                                        }
+                                                    </div>
+                                                    <div className="flex gap-[3rem] text-[1.4rem] items-center text-[#8a8a8a] mt-5 ">
+                                                        <div className="flex items-center gap-2 hover:text-primary transition-all cursor-pointer"
+                                                            onClick={() => handleLike(index)}
+                                                        >
+                                                            <FontAwesomeIcon icon={faHeart} className={`text-[1.8rem] ${post.isLike ? "text-[red]" : ""}`}/>
+                                                            <span>Like</span>
+                                                        </div>
+                                                        <div className="flex items-center gap-2 hover:text-primary transition-all cursor-pointer"
+                                                            onClick={() => {
+                                                                setShowReply(true);
+                                                                handleReply(index);
+                                                            }}
+                                                        >
+                                                            <FontAwesomeIcon icon={faMessage} className="text-[1.8rem]"/>
+                                                            <span>Reply</span>
+                                                        </div>
+                                                    </div>
                                                     {
-                                                        post.content
+                                                        showReply && (
+                                                            post.isReply && (
+                                                                <div>
+                                                                    <div className="relative flex items-start mt-[2rem]">
+                                                                        <div className="w-[4rem] h-[4rem] md:w-[4.6rem] md:h-[4.6rem] rounded-[50%]">
+                                                                            <img
+                                                                                src="https://media-cldnry.s-nbcnews.com/image/upload/rockcms/2024-07/240716-Elon-Musk-ch-1125-69ea28.jpg"
+                                                                                className="w-full h-full rounded-[50%] object-cover"
+                                                                            />
+                                                                        </div>
+                                                                        <textarea placeholder="Reply..." maxLength={200} className="w-[calc(100%-5rem)] h-[5rem] md:h-[8rem] pt-3 pl-[1.5rem] bg-[transparent] border-[.1rem] border-[#565656] text-white ml-4 resize-none outline-none focus:border-[#00d9ff] rounded-[.4rem]"
+                                                                            value={commentReply}
+                                                                            onChange={(e) => {setCommentReply(e.target.value)}}
+                                                                        >
+                                                                        </textarea>
+                                                                        <div className="absolute bottom-1 right-2 text-[1.2rem] text-white"> 
+                                                                            <span>0</span>/200
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="w-[calc(100%-5rem)] ml-auto text-end mt-[1.5rem] pb-5 text-[1.4rem] md:text-[1.6rem]"
+                                                                    >
+                                                                        <span className={`px-4 py-1 md:px-8 md:py-3 text-white mr-4 rounded-[.4rem]  cursor-pointer transition-all duration-[.25s] ${commentReply !== "" ? "bg-[#5555558b] hover:opacity-[.8]" : "bg-[#5555558b] hover:opacity-[.8]"}`}
+                                                                            onClick={() => 
+                                                                                setShowReply(false)
+                                                                            }
+                                                                        >Hủy</span>
+                                                                        <span className={`px-4 py-1 md:px-8 md:py-3 text-white rounded-[.4rem]  cursor-pointer transition-all duration-[.25s] ${commentReply !== "" ? "bg-primary hover:opacity-[.8]" : "bg-[#00ffff1f]"}`}
+                                                                            onClick={() => {
+                                                                                if(commentReply !== "") {
+                                                                                    setShowReply(false);
+                                                                                    setCommentReply("");
+                                                                                    handlePostCommentReply(commentReply, index)
+                                                                                }
+                                                                            }}
+                                                                        >Đăng</span>
+                                                                    </div>
+                                                                </div>
+                                                            )
+                                                        )
+                                                    }
+                                                    {
+                                                        post.contentReply?.length > 0 && post.contentReply.map((childReply) => {
+                                                            return (
+                                                                <div className="flex items-start gap-4 w-full h-auto  mt-8 ">
+                                                                    <img
+                                                                        src="https://media-cldnry.s-nbcnews.com/image/upload/rockcms/2024-07/240716-Elon-Musk-ch-1125-69ea28.jpg"
+                                                                        className="w-[4rem] h-[4rem] md:w-[4.6rem] md:h-[4.6rem] rounded-[50%] object-cover"
+                                                                    />
+                                                                    <div className="w-full h-auto overflow-hidden pb-[2rem] border-b-[.1rem] border-[#565656]">
+                                                                        <h5 className="text-[#8a8a8a]">
+                                                                            Elon Musk
+                                                                        </h5>
+                                                                        {/* break-word tự xuống dòng */}
+                                                                        <div className="w-full h-auto text-[1.4rem] break-words text-white">
+                                                                            {
+                                                                                childReply.content
+                                                                            }
+                                                                        </div>
+                                                                        <div className="flex gap-[3rem] text-[1.4rem] items-center text-[#8a8a8a] mt-5 ">
+                                                                            <div className="flex items-center gap-2 hover:text-primary transition-all cursor-pointer"
+                                                                                onClick={() => handleLikeReply(post.content, childReply.content)}
+                                                                            >
+                                                                                <FontAwesomeIcon icon={faHeart} className={`text-[1.8rem] ${childReply.isLike ? "text-[red]" : ""}`}/>
+                                                                                <span>Like</span>
+                                                                            </div>
+                                                                            <div className="flex items-center gap-2 hover:text-primary transition-all cursor-pointer"
+                                                                            >
+                                                                                <FontAwesomeIcon icon={faMessage} className="text-[1.8rem]"/>
+                                                                                <span>Reply</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            )
+                                                        })
                                                     }
                                                 </div>
-                                                <div className="flex gap-[3rem] text-[1.4rem] items-center text-[#8a8a8a] mt-5 ">
-                                                    <div className="flex items-center gap-2 hover:text-primary transition-all cursor-pointer"
-                                                        onClick={() => handleLike(index)}
-                                                    >
-                                                        <FontAwesomeIcon icon={faHeart} className={`text-[1.8rem] ${post.isLike ? "text-[red]" : ""}`}/>
-                                                        <span>Like</span>
-                                                    </div>
-                                                    <div className="flex items-center gap-2 hover:text-primary transition-all cursor-pointer"
-                                                        onClick={() => {
-                                                            setShowReply(true);
-                                                            handleReply(index);
-                                                        }}
-                                                    >
-                                                        <FontAwesomeIcon icon={faMessage} className="text-[1.8rem]"/>
-                                                        <span>Reply</span>
-                                                    </div>
-                                                </div>
-                                                {
-                                                    showReply && (
-                                                        post.isReply && (
-                                                            <div>
-                                                                <div className="relative flex items-start mt-[2rem]">
-                                                                    <div className="w-[3.8rem] h-[3.8rem] md:w-[4rem] md:h-[4rem] rounded-[50%]">
-                                                                        <img
-                                                                            src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/734e81d8-ee56-406d-a6ad-65a68916da85/dgmoq0q-1b62c95c-62f3-4368-846d-90bde1931734.jpg/v1/fill/w_894,h_894,q_70,strp/dragon_ball_goku_wallpaper__by_vnedit_dgmoq0q-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTAyNCIsInBhdGgiOiJcL2ZcLzczNGU4MWQ4LWVlNTYtNDA2ZC1hNmFkLTY1YTY4OTE2ZGE4NVwvZGdtb3EwcS0xYjYyYzk1Yy02MmYzLTQzNjgtODQ2ZC05MGJkZTE5MzE3MzQuanBnIiwid2lkdGgiOiI8PTEwMjQifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.MwlI35PHuNBXbpDweVwUJofj0mYQpMiZjJ9oIXam4tQ"
-                                                                            className="w-full h-full rounded-[50%]"
-                                                                        />
-                                                                    </div>
-                                                                    <textarea placeholder="Reply..." maxLength={200} className="w-[calc(100%-5rem)] h-[5rem] md:h-[8rem] pt-3 pl-[1.5rem] bg-[transparent] border-[.1rem] border-[#565656] text-white ml-4 resize-none outline-none focus:border-[#00d9ff] rounded-[.4rem]"
-                                                                        value={commentReply}
-                                                                        onChange={(e) => {setCommentReply(e.target.value)}}
-                                                                    >
-                                                                    </textarea>
-                                                                    <div className="absolute bottom-1 right-2 text-[1.2rem] text-white"> 
-                                                                        <span>0</span>/200
-                                                                    </div>
-                                                                </div>
-                                                                <div className="w-[calc(100%-5rem)] ml-auto text-end mt-[1.5rem] pb-5 text-[1.4rem] md:text-[1.6rem]"
-                                                                >
-                                                                    <span className={`px-4 py-1 md:px-8 md:py-3 text-white mr-4 rounded-[.4rem]  cursor-pointer transition-all duration-[.25s] ${commentReply !== "" ? "bg-[#5555558b] hover:opacity-[.8]" : "bg-[#5555558b]"}`}
-                                                                        onClick={() => 
-                                                                            setComment("")
-                                                                        }
-                                                                    >Hủy</span>
-                                                                    <span className={`px-4 py-1 md:px-8 md:py-3 text-white rounded-[.4rem]  cursor-pointer transition-all duration-[.25s] ${commentReply !== "" ? "bg-primary hover:opacity-[.8]" : "bg-[#00ffff1f]"}`}
-                                                                        onClick={() => {
-                                                                            if(commentReply !== "") {
-                                                                                setShowReply(false);
-                                                                                setComment("");
-                                                                                handlePostCommentReply(commentReply)
-                                                                            }
-                                                                        }}
-                                                                    >Đăng</span>
-                                                                </div>
-                                                            </div>
-                                                        )
-                                                    )
-                                                }
-                                                {
-                                                    postCommentReply?.length > 0 && postCommentReply.map((childReply) => {
-                                                        return (
-                                                            <div className="flex items-start gap-4 w-full h-auto  mt-8 ">
-                                                                <img
-                                                                    src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/734e81d8-ee56-406d-a6ad-65a68916da85/dgmoq0q-1b62c95c-62f3-4368-846d-90bde1931734.jpg/v1/fill/w_894,h_894,q_70,strp/dragon_ball_goku_wallpaper__by_vnedit_dgmoq0q-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTAyNCIsInBhdGgiOiJcL2ZcLzczNGU4MWQ4LWVlNTYtNDA2ZC1hNmFkLTY1YTY4OTE2ZGE4NVwvZGdtb3EwcS0xYjYyYzk1Yy02MmYzLTQzNjgtODQ2ZC05MGJkZTE5MzE3MzQuanBnIiwid2lkdGgiOiI8PTEwMjQifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.MwlI35PHuNBXbpDweVwUJofj0mYQpMiZjJ9oIXam4tQ"
-                                                                    className="w-[3.8rem] h-[3.8rem] md:w-[4rem] md:h-[4rem] rounded-[50%] object-cover"
-                                                                />
-                                                                <div className="w-full h-auto overflow-hidden pb-[2rem] border-b-[.1rem] border-[#565656]">
-                                                                    <h5 className="text-[#8a8a8a]">
-                                                                        Elon Musk
-                                                                    </h5>
-                                                                    {/* break-word tự xuống dòng */}
-                                                                    <div className="w-full h-auto text-[1.4rem] break-words text-white">
-                                                                        {
-                                                                            childReply.content
-                                                                        }
-                                                                    </div>
-                                                                    <div className="flex gap-[3rem] text-[1.4rem] items-center text-[#8a8a8a] mt-5 ">
-                                                                        <div className="flex items-center gap-2 hover:text-primary transition-all cursor-pointer"
-                                                                            onClick={() => handleLike(index)}
-                                                                        >
-                                                                            <FontAwesomeIcon icon={faHeart} className={`text-[1.8rem] ${childReply.isLike ? "text-[red]" : ""}`}/>
-                                                                            <span>Like</span>
-                                                                        </div>
-                                                                        <div className="flex items-center gap-2 hover:text-primary transition-all cursor-pointer"
-                                                                            onClick={() => {
-                                                                                setShowReply(true);
-                                                                                handleReply(index);
-                                                                            }}
-                                                                        >
-                                                                            <FontAwesomeIcon icon={faMessage} className="text-[1.8rem]"/>
-                                                                            <span>Reply</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        )
-                                                    })
-                                                }
                                             </div>
-                                        </div>
-                                    )
-                                })
-                            }
+                                        )
+                                    })
+                                }
+                            </div>
                         </div>
                     </div>
                 )

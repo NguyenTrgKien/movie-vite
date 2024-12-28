@@ -234,7 +234,7 @@ input[type = "text"]::placeholder{
         left: 0;
         /* background-image: linear-gradient(to left top, rgba(255, 0, 0, 0.718), rgba(11, 152, 228, 0.551), rgba(0, 0, 0, 0.455), rgba(251, 12, 12, 0.658)); */
         /* background-image: linear-gradient(to top right,rgba(255, 0, 0, 0.833), rgba(0, 0, 255, 0.805), rgba(13, 230, 13, 0.827)); */
-        background-image: linear-gradient(to left, rgba(255, 0, 0, 0.532), rgba(0, 0, 255, 0.559));
+        background-image: linear-gradient(to left, rgba(255, 0, 0, 0.4), rgba(0, 0, 255, 0.395));
         z-index: 20;
     }
     .animationInput:focus + label,

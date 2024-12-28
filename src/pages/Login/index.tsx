@@ -20,7 +20,7 @@ function Login({onClose}: {onClose: () => void}) {
         }, []);
     return (  
         <div className="w-full h-[100vh] fixed flex justify-center items-center top-0 left-0">
-            <div className="absolute top-5 right-5 w-[4rem] h-[4rem] flex justify-center items-center bg-[#1f8c968b] hover:bg-primary transition-all duration-[.25s] rounded-[.2rem] z-50"
+            <div className="absolute top-5 right-5 w-[4rem] h-[4rem] flex justify-center items-center bg-[#5151518b] hover:bg-primary transition-all duration-[.25s] rounded-[.2rem] z-50"
                 onClick={onClose}   
             >
                 <FontAwesomeIcon icon={faXmark} className="text-[3rem] text-[#fff]"/>

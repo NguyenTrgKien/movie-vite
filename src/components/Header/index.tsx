@@ -108,7 +108,13 @@ function Header({theme}: {theme?: string}) {
                                 Language
                             </div>
                             <div className='px-5 py-5 text-[1.6rem] text-white'>
+                                Phim mới nhất
+                            </div>
+                            <div className='px-5 py-5 text-[1.6rem] text-white'>
                                 Bộ sưu tập
+                            </div>
+                            <div className='px-5 py-5 text-[1.6rem] text-white'>
+                                Lịch sử xem
                             </div>
                         </div>
                     </div>

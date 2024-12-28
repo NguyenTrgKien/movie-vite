@@ -35,7 +35,7 @@ function ShareMovie({url, title, handleCloseShare}: {url: string, title: string,
                 >
                     <FontAwesomeIcon icon={faXmark} className="text-[1.8rem] text-white"/>
                 </span>
-                <div className="md:flex grid grid-cols-4 items-center justify-center gap-[2rem] md:gap-[3.6rem] ">
+                <div className="md:flex grid grid-cols-4 items-center justify-center gap-[2rem] md:gap-[3.6rem] pb-10 border-b-[.1rem] border-[#565656]">
                     <FacebookShareButton url={url} hashtag={title} className=" hover:opacity-[.8] transition-all">
                         <FacebookIcon size={50} round/>
                         <span className="text-white block pt-2">Facebook</span>
