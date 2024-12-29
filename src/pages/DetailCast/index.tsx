@@ -69,7 +69,7 @@ function DetailCast() {
     return (  
         <div className="w-full h-auto bg-[#111319]">    
             <Header/>
-            <div className="w-full h-auto md:px-[25rem] pt-[7.2rem] md:pt-[14rem] pb-[10rem]">
+            <div className="w-full h-auto md:px-[25rem] pt-[4.8rem] md:pt-[14rem] pb-[10rem]">
             {
                 detailcast && (
                     <div className="w-full h-auto md:flex md:flex-row gap-10 pb-[5rem] border-b-[.1rem] border-[#5d5d5d]">

@@ -71,7 +71,7 @@ function DetailMovie() {
         <div className="w-full h-auto">
             <Header/>
             {detailmovie && (
-                <div className="w-full h-auto md:pt-0 pt-[7.4rem]">
+                <div className="w-full h-auto md:pt-0 pt-[4.8rem]">
                     <div className="relative w-full h-max">
                         <div className="w-full h-full md:block hidden absolute top-0 left-0 backgroundBlur z-0">
                             <img

@@ -27,6 +27,7 @@ function ListGenre() {
     const context = useContext(dataContext);
     const currentLang = context.currentLang;
     
+    
     useEffect(() => {
         const fetchData = async() => {
             if(id && currentPage) {

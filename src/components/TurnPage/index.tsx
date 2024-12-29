@@ -2,7 +2,7 @@ import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 
-type ParamFunc = {address: string, currentPage: number, pages: number, id: string, name?: string};
+type ParamFunc = {address: string, currentPage: number, pages: number, id?: string, name?: string};
 
 function TurnPage({address, currentPage, pages, id, name}: ParamFunc) {
     

@@ -50,7 +50,8 @@ function Header({theme}: {theme?: string}) {
     const listGenre = context.genre;
     const language = context.language;
     const [showLanguage, setShowLanguage] = useState(false);
-    const currentLang = context.currentLang;    
+    const currentLang = context.currentLang;  
+    
     useEffect(() => {
         const handleScroll = () => {
             if(window.scrollY >= 100){
@@ -115,9 +116,9 @@ function Header({theme}: {theme?: string}) {
                     <Link to='/' className='text-white relative text-[1.6rem] cursor-pointer select-none beforeItemMenu hovermenuitem hover:text-[#ccc] transition hidden md:block'>
                         Home
                     </Link>
-                    <div className='text-white relative text-[1.6rem] cursor-pointer select-none beforeItemMenu hovermenuitem hover:text-[#ccc] transition hidden md:block'>
+                    <Link to={`/newmovie`} className='text-white relative text-[1.6rem] cursor-pointer select-none beforeItemMenu hovermenuitem hover:text-[#ccc] transition hidden md:block'>
                         New movie
-                    </div>
+                    </Link>
                     <Tippy
                         placement='bottom-start'
                         interactive={true}

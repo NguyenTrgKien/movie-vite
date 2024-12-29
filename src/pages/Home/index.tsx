@@ -36,7 +36,7 @@ function Home() {
                 dispatch(setUpcoming(currentLang)),
                 dispatch(setToprated(currentLang)),
                 dispatch(setAnimation(currentLang)),
-                dispatch(setNewmovie(currentLang)),
+                dispatch(setNewmovie({language: currentLang, page: 1})),
                 dispatch(setAdventure(currentLang)),
             ]);
             setIsLoading(false);
@@ -44,8 +44,9 @@ function Home() {
         fetchData();
     },[dispatch, currentLang]);
 
-    const currentMovie: homeType = newmovie[index];
-
+    const newmovies = newmovie.results;
+    const currentMovie: homeType = newmovies[index];
+    
     const handleScroll = (direc: string) => {
         const element = elementScroll.current;
         if(element){
@@ -53,7 +54,7 @@ function Home() {
                 setContentTransfer(true);
                 setTimeout(() => {
                     setIndex((prev) => {
-                        if(prev === newmovie.length - 1){
+                        if(prev === newmovies.length - 1){
                             return prev = 0;
                         }else{
                             return prev = prev + 1;
@@ -66,7 +67,7 @@ function Home() {
                 setTimeout(() => {
                     setIndex((prev) => {
                         if(prev === 0){
-                            return prev = newmovie.length - 1;
+                            return prev = newmovies.length - 1;
                         }else{
                             return prev = prev - 1;
                         }
@@ -79,20 +80,20 @@ function Home() {
     }
 
     useEffect(() => {
-        if(newmovie.length > 0){
+        if(newmovies.length > 0){
             const element = elementScroll.current;
             if(element){
                 const itemInterval = setInterval(() => {
                     setContentTransfer(true);
                     setTimeout(() => {
-                        setIndex((prev) => (prev === newmovie.length - 1 ? 0 : prev + 1));
+                        setIndex((prev) => (prev === newmovies.length - 1 ? 0 : prev + 1));
                         setContentTransfer(false);
                     }, 500);
                 }, 6000);
                 return () => {clearInterval(itemInterval)}
             }
         }
-    }, [newmovie]);
+    }, [newmovies]);
 
     if(isLoading){
         return (
@@ -122,7 +123,7 @@ function Home() {
                         </div>
                         
                         {
-                            newmovie?.length > 0 && (
+                            newmovies?.length > 0 && (
                                 <div className={`absolute md:top-[55%] top-[70%] translate-y-[-50%] left-[1.5rem] md:left-[6.5rem] w-[80%] h-[20rem] md:w-[75rem] md:min-h-[35rem] md:max-h-[40rem] z-10 ${contentTransfer ? "opacity-0" : ""} transition-all duration-[1s]`}>
                                         <h2 className="text-[2.5rem] md:text-[7rem] font-bold text-white leading-[1]">
                                             {
@@ -144,19 +145,19 @@ function Home() {
                                                 }
                                             </div>
                                         </div>
-                                        <div className="flex gap-x-[.5rem] flex-wrap items-center text-[1.2rem] md:text-[1.4rem]">
+                                        <div className="flex gap-x-[.5rem] flex-wrap items-center text-[1.2rem] md:text-[1.4rem] mt-[1rem]">
                                             {
                                                 genre && genre.map((it: homeType, index) => {
                                                     if(currentMovie.genre_ids.includes(it.id)){
                                                         return (
-                                                            <span key={index} className="px-[1rem] bg-[#767676] text-white rounded-[.2rem] mt-[.6rem]">{it.name}</span>
+                                                            <span key={index} className="px-[1rem] bg-[#767676] text-white rounded-[.2rem]">{it.name}</span>
                                                         )
                                                     }
                                                     return null;
                                                 })
                                             }
                                         </div>
-                                        <div className="text-white mt-[.6rem] text-[1.2rem] md:text-[1.4rem] md:lineLimitMobile md:lineLimitLg hidden">
+                                        <div className="text-white mt-[1rem] text-[1.2rem] md:text-[1.4rem] md:lineLimitMobile md:lineLimitLg hidden">
                                             <span className="inline-block text-[#ccc] ">Overview: </span> 
                                             {
                                                 currentMovie.overview === "" ? ('Không có mô tả cụ thể nào cho phim này.') : currentMovie.overview

@@ -61,9 +61,9 @@ export const setAnimation = createAsyncThunk(Actiontype.ANIMATION, async(languag
     }
 })
 
-export const setNewmovie = createAsyncThunk(Actiontype.NEWMOVIE, async(language: string) => {
+export const setNewmovie = createAsyncThunk(Actiontype.NEWMOVIE, async({language, page}: {language: string, page: number}) => {
     try{
-        const response = await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${myKey}&language=${language}`);
+        const response = await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${myKey}&language=${language}&page=${page}`);
         const data = await response.json();
         return data;
     }catch(error){

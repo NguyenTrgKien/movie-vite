@@ -27,9 +27,9 @@ function Menu({language, currentLang, menuMobile, setShowLanguage, listGenre, co
                     />
                     <span>User127654r</span>
                 </div>
-                <div className='px-5 py-5 text-[1.9rem] text-[#cfcece] border-b-[.1rem] border-[#444444]'>
+                <Link to={`/newmovie`} className='block px-5 py-5 text-[1.9rem] text-[#cfcece] border-b-[.1rem] border-[#444444]'>
                     New movie
-                </div>
+                </Link>
                 <div className='px-5 py-5 text-[1.9rem] text-primary border-b-[.1rem] border-[#444444]'
                     onClick={() => setShowLanguage(true)}
                 >

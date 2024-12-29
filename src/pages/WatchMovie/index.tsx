@@ -78,8 +78,8 @@ function WatchMovie() {
             <Header theme={'dark'}/>
             {
                 trailer && (
-                    <div className="w-full h-auto md:px-[15rem] pb-[6rem]">
-                        <div className="md:flex md:flex-row pt-[7.2rem] md:pt-[11rem] w-full h-auto">
+                    <div className="w-full h-auto md:px-[15rem] md:pt-[0] pt-[5.5rem] pb-[6rem]">
+                        <div className="md:flex md:flex-row md:pt-[11rem] w-full h-auto">
                             <div className="relative md:w-[75%] h-[30rem] md:h-[54rem] youtube-container">
                                 <YouTube
                                     videoId={trailer.key}

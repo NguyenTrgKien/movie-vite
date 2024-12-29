@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { setAdventure, setAnimation, setGenre, setNewmovie, setPopular, setToprated, setTrending, setUpcoming } from "./actionHome";
+import { listGenreType } from "../ListGenre/listgenreSlice";
 
 export interface homeType {
     id: number;
@@ -25,7 +26,7 @@ export interface homeState{
     upcoming: [],
     toprated: [],
     animation: [],
-    newmovie: [],
+    newmovie: listGenreType,
     adventure: []
 }
 
@@ -36,7 +37,14 @@ const initialState: homeState = {
     upcoming: [],
     toprated: [],
     animation: [],
-    newmovie: [],
+    newmovie: {
+      page: 0,
+        results: [],
+        total_pages: 0,
+        total_results: 0,
+        id: 0,
+        name: ''
+    },
     adventure: []
 }
 
@@ -74,7 +82,7 @@ const homeSlice = createSlice({
               })
 
               .addCase(setNewmovie.fulfilled, (state, action) => {
-                state.newmovie = action.payload.results;
+                state.newmovie = action.payload;
               })
               .addCase(setAdventure.fulfilled, (state, action) => {
                 state.adventure = action.payload.results;
