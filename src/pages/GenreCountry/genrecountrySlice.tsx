@@ -5,7 +5,10 @@ export interface genreCountryType {
     page: number,
     results: [],
     total_pages: number,
-    total_results: number
+    total_results: number,
+    iso_639_1: string,
+    id: string,
+    name: string
 }
 
 export interface genreCountryState{
@@ -17,7 +20,10 @@ const initialState = {
         page: 1,
         results: [],
         total_pages: 1,
-        total_results: 1
+        total_results: 1,
+        iso_639_1: '',
+        id: '',
+        name: ''
     }
 }
 

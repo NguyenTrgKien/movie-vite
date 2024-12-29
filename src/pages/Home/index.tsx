@@ -14,6 +14,8 @@ import { Link } from 'react-router-dom';
 import Tippy from '@tippyjs/react';
 import { dataContext } from '../../components/Context';
 
+
+
 function Home() {
     const [isLoading, setIsLoading] = useState(true);
     const [index, setIndex] = useState(0);
@@ -76,6 +78,22 @@ function Home() {
         }
     }
 
+    useEffect(() => {
+        if(newmovie.length > 0){
+            const element = elementScroll.current;
+            if(element){
+                const itemInterval = setInterval(() => {
+                    setContentTransfer(true);
+                    setTimeout(() => {
+                        setIndex((prev) => (prev === newmovie.length - 1 ? 0 : prev + 1));
+                        setContentTransfer(false);
+                    }, 500);
+                }, 6000);
+                return () => {clearInterval(itemInterval)}
+            }
+        }
+    }, [newmovie]);
+
     if(isLoading){
         return (
             <Loading/>
@@ -105,7 +123,7 @@ function Home() {
                         
                         {
                             newmovie?.length > 0 && (
-                                <div className={`absolute top-[55%] translate-y-[-50%] left-[1.5rem] md:left-[6.5rem] w-[75%] h-[20rem] md:w-[75rem] md:min-h-[35rem] md:max-h-[40rem] z-10 ${contentTransfer ? "opacity-0" : ""} transition-all duration-[1s]`}>
+                                <div className={`absolute md:top-[55%] top-[70%] translate-y-[-50%] left-[1.5rem] md:left-[6.5rem] w-[80%] h-[20rem] md:w-[75rem] md:min-h-[35rem] md:max-h-[40rem] z-10 ${contentTransfer ? "opacity-0" : ""} transition-all duration-[1s]`}>
                                         <h2 className="text-[2.5rem] md:text-[7rem] font-bold text-white leading-[1]">
                                             {
                                                 currentMovie.title
@@ -126,7 +144,7 @@ function Home() {
                                                 }
                                             </div>
                                         </div>
-                                        <div className="flex gap-[.5rem] items-center text-[1.2rem] md:text-[1.4rem]">
+                                        <div className="flex gap-x-[.5rem] flex-wrap items-center text-[1.2rem] md:text-[1.4rem]">
                                             {
                                                 genre && genre.map((it: homeType, index) => {
                                                     if(currentMovie.genre_ids.includes(it.id)){
@@ -138,7 +156,7 @@ function Home() {
                                                 })
                                             }
                                         </div>
-                                        <div className="text-white mt-[.6rem] text-[1.2rem] md:text-[1.4rem] lineLimitMobile md:lineLimitLg">
+                                        <div className="text-white mt-[.6rem] text-[1.2rem] md:text-[1.4rem] md:lineLimitMobile md:lineLimitLg hidden">
                                             <span className="inline-block text-[#ccc] ">Overview: </span> 
                                             {
                                                 currentMovie.overview === "" ? ('Không có mô tả cụ thể nào cho phim này.') : currentMovie.overview
@@ -174,7 +192,7 @@ function Home() {
                             )
                         }
                     </div>
-                    <div className='md:hidden absolute bottom-12 right-6 flex items-center gap-5'>
+                    <div className='md:hidden absolute z-[100] bottom-12 right-6 flex items-center gap-5'>
                         <div className='w-[4rem] h-[4rem] border-[.1rem] border-[#565656] flex justify-center items-center rounded-[50%]'
                             onClick={() => handleScroll("left")}
                         >
