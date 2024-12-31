@@ -181,7 +181,7 @@ function Header({theme}: {theme?: string}) {
                     </Tippy>
                 </div>
                 <div className="ml-[auto] flex items-center gap-x-[1rem] md:gap-x-[2.5rem]">
-                    <div className={`relative bg-transparent w-[16rem] md:w-[35rem] h-[2.8rem] md:h-[3.5rem] rounded-[.2rem] transition-all duration-[20rem] bg-[transparent`}>
+                    <Link to={`/searchmovie`} className={`relative bg-transparent w-[16rem] md:w-[35rem] h-[2.8rem] md:h-[3.5rem] rounded-[.2rem] transition-all duration-[20rem] bg-[transparent`}>
                         <input
                             type='text'
                             className={`w-full h-full md:block rounded-[.2rem] outline-none border-none md:bg-[#6363638a] bg-[#858585] text-white pl-[1rem] text-[1.2rem]`}
@@ -191,7 +191,7 @@ function Header({theme}: {theme?: string}) {
                         >
                             <FontAwesomeIcon icon={faMagnifyingGlass} className='text-[#fff] px-5 border-l-[.1rem] border-[#bfbfbf]'/>
                         </div>
-                    </div>
+                    </Link>
                     <Tippy
                         placement='bottom'
                         interactive={true}

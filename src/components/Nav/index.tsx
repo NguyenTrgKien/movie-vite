@@ -7,19 +7,23 @@ import { Link } from "react-router-dom";
 import { homeType } from "../../pages/Home/homeSlice";
 
 interface NavProps{
-    popular?: homeType[]; 
-    trending?: homeType[]; 
-    upcoming?: homeType[];
-    toprated?: homeType[];
-    adventure?: homeType[];
-    animation?: homeType[];
+    [key: string] : homeType[];
     genre: homeType[];
 }
 
-function Nav({popular = [], trending = [], upcoming = [],toprated = [], adventure = [], animation = [],genre}:NavProps ) {
+function Nav({genre, ...props}:NavProps ) {
     const elementScroll = useRef<HTMLDivElement | null>(null);
 
-    const argumentProp = popular.length > 0 ? popular : (trending.length > 0 ? trending : (upcoming.length > 0 ? upcoming : (toprated.length > 0 ? toprated : (adventure.length > 0? adventure : animation))));
+    const argumentProp = Object.values(props).find(arr => arr.length > 0) || [];
+
+    const genreTitle = (() => {
+        if (props.popular === argumentProp) return 'Popular';
+        if (props.trending === argumentProp) return 'Trending';
+        if (props.upcoming === argumentProp) return 'Upcoming';
+        if (props.toprated === argumentProp) return 'Toprated';
+        if (props.adventure === argumentProp) return 'Adventure';
+        return 'Animation';
+    })();
 
     const handleScroll = (scroll: string) => {
         if(elementScroll.current){
@@ -40,10 +44,8 @@ function Nav({popular = [], trending = [], upcoming = [],toprated = [], adventur
     
     return (  
         <div className="w-full md:h-[38rem] relative flex items-center px-[1.5rem] md:px-[4.5rem] pb-[3.5rem] md:pb-0"> 
-            <div className="absolute -top-[1.8rem] md:-top-[3rem] text-white left-[1.5rem] md:left-[6.5rem] text-[1.6rem] md:text-[2.5rem] font-semibold">
-                {
-                    argumentProp === trending ? "Trending" : (argumentProp === popular ? "Popular": (argumentProp === upcoming ? "Upcoming" : argumentProp === toprated ? "Toprated": (argumentProp === adventure ? 'Adventure' : "Animation")))
-                }
+            <div className="absolute -top-[1.8rem] md:-top-[3rem] text-white left-[1.5rem] md:left-[6.5rem] text-[1.6rem] md:text-[2.5rem] font-semibold">  
+            {genreTitle}
             </div>
             <div className=" absolute top-[50%] translate-y-[-50%] left-[1.4rem] w-[4.5rem] h-[4.5rem] bg-[transparent] hidden md:flex justify-center items-center rounded-[50%] border-[.1rem] border-[#565656] hover:border-primary transition-all duration-[.25s] z-30 group"
                 onClick={() => handleScroll('left')}

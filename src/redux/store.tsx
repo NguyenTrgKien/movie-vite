@@ -6,6 +6,7 @@ import listGenre from '../pages/ListGenre/listgenreSlice';
 import detailCast from '../pages/DetailCast/detailcastSlice';
 import genreCountry from '../pages/GenreCountry/genrecountrySlice';
 import contextSlice from '../components/Context/contextSlice';
+import searchMovie from '../pages/SearchMovie/searchMovieSlice';
 
 const store = configureStore({
     reducer: {
@@ -15,7 +16,8 @@ const store = configureStore({
         listgenre: listGenre,
         detailcast: detailCast,
         genrecountry: genreCountry,
-        context: contextSlice
+        context: contextSlice,
+        searchmovie: searchMovie
     }
 })
 

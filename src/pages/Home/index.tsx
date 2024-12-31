@@ -14,8 +14,6 @@ import { Link } from 'react-router-dom';
 import Tippy from '@tippyjs/react';
 import { dataContext } from '../../components/Context';
 
-
-
 function Home() {
     const [isLoading, setIsLoading] = useState(true);
     const [index, setIndex] = useState(0);
@@ -25,7 +23,6 @@ function Home() {
     const {popular, genre, trending, upcoming, toprated, animation, newmovie, adventure} = useSelector((state: rootState) => state.home);
     const context = useContext(dataContext);
     const currentLang = context.currentLang;
-    
     
     useEffect(() => {
         const fetchData = async() => {
@@ -213,23 +210,22 @@ function Home() {
                         <FontAwesomeIcon icon={faAngleRight} className="text-[2.2rem] text-[#818181] group-hover:text-white"/>
                     </div>
                 </div>
-                <div className="w-full md:h-[38rem] md:relative md:-top-[6rem]">
+                <div className="w-full md:h-[38rem] relative md:-mt-[8rem]">
                     <Nav popular={popular} genre={genre}/>
                 </div>
-                <div className="w-full md:h-[38rem] relative">
-                    <Nav trending={trending} genre={genre}/>
-                </div>
-
-                <div className="w-full md:h-[38rem] relative md:mt-[5rem]">
-                    <Nav toprated={toprated} genre={genre}/>
-                </div>
-                <div className="w-full md:h-[38rem] relative md:mt-[5rem]">
+                <div className="w-full md:h-[38rem] relative md:mt-[8rem]">
                     <Nav adventure={adventure} genre={genre}/>
                 </div>
-                <div className="w-full md:h-[38rem] relative md:mt-[5rem]">
+                <div className="w-full md:h-[38rem] relative md:mt-[8rem]">
+                    <Nav trending={trending} genre={genre}/>
+                </div>
+                <div className="w-full md:h-[38rem] relative md:mt-[8rem]">
+                    <Nav toprated={toprated} genre={genre}/>
+                </div>
+                <div className="w-full md:h-[38rem] relative md:mt-[8rem]">
                     <Nav animation={animation} genre={genre}/>
                 </div>
-                <div className="w-full md:h-[38rem] relative md:mt-[5rem]">
+                <div className="w-full md:h-[38rem] relative md:mt-[8rem]">
                     <Nav upcoming={upcoming} genre={genre}/>
                 </div>
             </div>

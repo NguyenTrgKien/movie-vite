@@ -5,6 +5,7 @@ import DetailCast from "../pages/DetailCast";
 import ListGenre from "../pages/ListGenre";
 import GenreCountry from "../pages/GenreCountry";
 import NewMovie from "../pages/NewMovie";
+import SearchMovie from "../pages/SearchMovie";
 
 const RouterPublic: {path: string, element: JSX.Element}[] = [
     {
@@ -34,6 +35,10 @@ const RouterPublic: {path: string, element: JSX.Element}[] = [
     {
         path: '/newmovie',
         element: <NewMovie/>
+    },
+    {
+        path: '/searchmovie',
+        element: <SearchMovie/>
     }
 ]
 
