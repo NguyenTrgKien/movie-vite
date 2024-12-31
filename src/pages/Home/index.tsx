@@ -23,7 +23,47 @@ function Home() {
     const {popular, genre, trending, upcoming, toprated, animation, newmovie, adventure} = useSelector((state: rootState) => state.home);
     const context = useContext(dataContext);
     const currentLang = context.currentLang;
+    const [showItem, setShowItem] = useState([false, false, false, false, false, false]);
+    const itemRef = useRef<(HTMLDivElement | null)[]>([]);
     
+    useEffect(() => {
+        // setTimeout(() => {
+            if (itemRef.current.length > 0) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        const index = itemRef.current.indexOf(entry.target as HTMLDivElement);
+                        if (entry.isIntersecting) {
+                            setShowItem(prev => {
+                                const updatedItems = [...prev];
+                                updatedItems[index] = true; 
+                                return updatedItems;
+                            });
+                        }else{
+                            setShowItem(prev => {
+                                const updatedItems = [...prev];
+                                updatedItems[index] = false;
+                                return updatedItems;
+                            })
+                        }
+                    });
+                }, {
+                    threshold: 0
+                });
+        
+                itemRef.current.forEach((element) => {
+                    if (element) observer.observe(element);
+                });
+        
+                // Cleanup the observer
+                return () => {
+                    itemRef.current.forEach((element) => {
+                        if (element) observer.unobserve(element);
+                    });
+                };
+            }
+        // }, 2000);
+    }, [newmovie]);
+
     useEffect(() => {
         const fetchData = async() => {
             await Promise.all([
@@ -109,19 +149,20 @@ function Home() {
                     >
                         <FontAwesomeIcon icon={faAngleLeft} className="text-[2.2rem] text-[#818181] group-hover:text-white"/>
                     </div>
-                    <div className="relative w-full h-[25rem] md:h-[calc(100vh-6rem)] removeScrollbar overflow-hidden">
-                        <div className={`w-full h-[25rem] md:h-[calc(100vh-6rem)] grid grid-flow-col auto-cols-[100%] overflow-hidden removeScrollbar backgroundBorderBlur ${contentTransfer ? "opacity-[.4] " : "opacity-[1]"} transition-all duration-[.5s]`}
+                    <div className="relative w-full h-[25rem] md:h-[calc(100vh-8rem)] removeScrollbar overflow-hidden">
+                        <div className={`w-full h-[25rem] md:h-[calc(100vh-8rem)] grid grid-flow-col auto-cols-[100%] overflow-hidden removeScrollbar backgroundBorderBlur ${contentTransfer ? "opacity-[.4] " : "opacity-[1]"} transition-all duration-[.5s]`}
                             ref={elementScroll}
                         >
                             <img
                                 src={`https://image.tmdb.org/t/p/w1280${currentMovie.backdrop_path}`}
-                                className={`w-full h-full object-cover select-none `}
+                                className={`w-full h-full object-cover select-none`}
                             />
                         </div>
                         
                         {
                             newmovies?.length > 0 && (
-                                <div className={`absolute md:top-[55%] top-[70%] translate-y-[-50%] left-[1.5rem] md:left-[6.5rem] w-[80%] h-[20rem] md:w-[75rem] md:min-h-[35rem] md:max-h-[40rem] z-10 ${contentTransfer ? "opacity-0" : ""} transition-all duration-[1s]`}>
+                                <div className={` absolute md:top-[55%] top-[70%] translate-y-[-50%] left-[1.5rem] md:left-[6.5rem] w-[80%] h-[20rem] md:w-[75rem] md:min-h-[35rem] md:max-h-[40rem] z-10 ${contentTransfer ? "opacity-0" : ""} transition-all duration-[1s]`}
+                                >
                                         <h2 className="text-[2.5rem] md:text-[7rem] font-bold text-white leading-[1]">
                                             {
                                                 currentMovie.title
@@ -210,22 +251,34 @@ function Home() {
                         <FontAwesomeIcon icon={faAngleRight} className="text-[2.2rem] text-[#818181] group-hover:text-white"/>
                     </div>
                 </div>
-                <div className="w-full md:h-[38rem] relative md:-mt-[8rem]">
+                <div className={`${showItem[0] ? "translate-y-[-80px] opacity-[1]" : "translate-y-[50px] opacity-0"} transition-all duration-[1.5s] w-full md:h-[38rem] relative`}
+                    ref={(element) => {itemRef.current[0] = element}}
+                >
                     <Nav popular={popular} genre={genre}/>
                 </div>
-                <div className="w-full md:h-[38rem] relative md:mt-[8rem]">
+                <div className={`${showItem[1] ? "translate-y-[0] opacity-[1]" : "translate-y-[50px] opacity-0"} transition-all duration-[1.5s] w-full md:h-[38rem] relative `}
+                    ref={(element) => {itemRef.current[1] = element}}
+                >
                     <Nav adventure={adventure} genre={genre}/>
                 </div>
-                <div className="w-full md:h-[38rem] relative md:mt-[8rem]">
+                <div className={`${showItem[2] ? "translate-y-[0] opacity-[1]" : "translate-y-[50px] opacity-0"} transition-all duration-[1.5s] w-full md:h-[38rem] relative md:mt-[8rem]`}
+                    ref={(element) => {itemRef.current[2] = element}}
+                >
                     <Nav trending={trending} genre={genre}/>
                 </div>
-                <div className="w-full md:h-[38rem] relative md:mt-[8rem]">
+                <div className={`${showItem[3] ? "translate-y-[0] opacity-[1]" : "translate-y-[50px] opacity-0"} transition-all duration-[1.5s] w-full md:h-[38rem] relative md:mt-[8rem]`}
+                    ref={(element) => {itemRef.current[3] = element}}
+                >
                     <Nav toprated={toprated} genre={genre}/>
                 </div>
-                <div className="w-full md:h-[38rem] relative md:mt-[8rem]">
+                <div className={`${showItem[4] ? "translate-y-[0] opacity-[1]" : "translate-y-[50px] opacity-0"} transition-all duration-[1.5s] w-full md:h-[38rem] relative md:mt-[8rem]`}
+                    ref={(element) => {itemRef.current[4] = element}}
+                >
                     <Nav animation={animation} genre={genre}/>
                 </div>
-                <div className="w-full md:h-[38rem] relative md:mt-[8rem]">
+                <div className={`${showItem[5] ? "translate-y-[0] opacity-[1]" : "translate-y-[50px] opacity-0"} transition-all duration-[1.5s] w-full md:h-[38rem] relative md:mt-[8rem]`}
+                    ref={(element) => {itemRef.current[5] = element}}
+                >
                     <Nav upcoming={upcoming} genre={genre}/>
                 </div>
             </div>

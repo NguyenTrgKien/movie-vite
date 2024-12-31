@@ -36,7 +36,7 @@ input[type = "text"]::placeholder{
 
 @layer utilities{
     .heightBody{
-        height: calc(100vh - 8rem);
+        height: 100vh;
     }
     .hovermenuitem:hover::before{
         width: 100%;
@@ -308,6 +308,5 @@ input[type = "text"]::placeholder{
     .shadowMoreInfo{
         box-shadow: 0 0 4rem #111319;
     }
-    
     
 }       
