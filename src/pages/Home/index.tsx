@@ -54,7 +54,6 @@ function Home() {
                     if (element) observer.observe(element);
                 });
         
-                // Cleanup the observer
                 return () => {
                     itemRef.current.forEach((element) => {
                         if (element) observer.unobserve(element);
