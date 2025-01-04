@@ -23,45 +23,45 @@ function Home() {
     const {popular, genre, trending, upcoming, toprated, animation, newmovie, adventure} = useSelector((state: rootState) => state.home);
     const context = useContext(dataContext);
     const currentLang = context.currentLang;
-    const [showItem, setShowItem] = useState([false, false, false, false, false, false]);
-    const itemRef = useRef<(HTMLDivElement | null)[]>([]);
+    // const [showItem, setShowItem] = useState([false, false, false, false, false, false]);
+    // const itemRef = useRef<(HTMLDivElement | null)[]>([]);
     
-    useEffect(() => {
-        // setTimeout(() => {
-            if (itemRef.current.length > 0) {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach((entry) => {
-                        const index = itemRef.current.indexOf(entry.target as HTMLDivElement);
-                        if (entry.isIntersecting) {
-                            setShowItem(prev => {
-                                const updatedItems = [...prev];
-                                updatedItems[index] = true; 
-                                return updatedItems;
-                            });
-                        }else{
-                            setShowItem(prev => {
-                                const updatedItems = [...prev];
-                                updatedItems[index] = false;
-                                return updatedItems;
-                            })
-                        }
-                    });
-                }, {
-                    threshold: 0
-                });
+    // useEffect(() => {
+    //     // setTimeout(() => {
+    //         if (itemRef.current?.length > 0) {
+    //             const observer = new IntersectionObserver((entries) => {
+    //                 entries.forEach((entry) => {
+    //                     const index = itemRef.current.indexOf(entry.target as HTMLDivElement);
+    //                     if (entry.isIntersecting) {
+    //                         setShowItem(prev => {
+    //                             const updatedItems = [...prev];
+    //                             updatedItems[index] = true; 
+    //                             return updatedItems;
+    //                         });
+    //                     }else{
+    //                         setShowItem(prev => {
+    //                             const updatedItems = [...prev];
+    //                             updatedItems[index] = false;
+    //                             return updatedItems;
+    //                         })
+    //                     }
+    //                 });
+    //             }, {
+    //                 threshold: 0
+    //             });
         
-                itemRef.current.forEach((element) => {
-                    if (element) observer.observe(element);
-                });
+    //             itemRef.current.forEach((element) => {
+    //                 if (element) observer.observe(element);
+    //             });
         
-                return () => {
-                    itemRef.current.forEach((element) => {
-                        if (element) observer.unobserve(element);
-                    });
-                };
-            }
-        // }, 2000);
-    }, [newmovie]);
+    //             return () => {
+    //                 itemRef.current.forEach((element) => {
+    //                     if (element) observer.unobserve(element);
+    //                 });
+    //             };
+    //         }
+    //     // }, 2000);
+    // }, [newmovie]);
 
     useEffect(() => {
         const fetchData = async() => {
@@ -250,33 +250,27 @@ function Home() {
                         <FontAwesomeIcon icon={faAngleRight} className="text-[2.2rem] text-[#818181] group-hover:text-white"/>
                     </div>
                 </div>
-                <div className={`${showItem[0] ? "translate-y-[-80px] opacity-[1]" : "translate-y-[50px] opacity-0"} transition-all duration-[1.5s] w-full md:h-[38rem] relative`}
-                    ref={(element) => {itemRef.current[0] = element}}
+                <div className={` w-full md:h-[38rem] relative md:translate-y-[-8rem]`}
                 >
                     <Nav popular={popular} genre={genre}/>
                 </div>
-                <div className={`${showItem[1] ? "translate-y-[0] opacity-[1]" : "translate-y-[50px] opacity-0"} transition-all duration-[1.5s] w-full md:h-[38rem] relative `}
-                    ref={(element) => {itemRef.current[1] = element}}
+                <div className={`w-full md:h-[38rem] relative `}
                 >
                     <Nav adventure={adventure} genre={genre}/>
                 </div>
-                <div className={`${showItem[2] ? "translate-y-[0] opacity-[1]" : "translate-y-[50px] opacity-0"} transition-all duration-[1.5s] w-full md:h-[38rem] relative md:mt-[8rem]`}
-                    ref={(element) => {itemRef.current[2] = element}}
+                <div className={`w-full md:h-[38rem] relative md:mt-[8rem]`}
                 >
                     <Nav trending={trending} genre={genre}/>
                 </div>
-                <div className={`${showItem[3] ? "translate-y-[0] opacity-[1]" : "translate-y-[50px] opacity-0"} transition-all duration-[1.5s] w-full md:h-[38rem] relative md:mt-[8rem]`}
-                    ref={(element) => {itemRef.current[3] = element}}
+                <div className={` w-full md:h-[38rem] relative md:mt-[8rem]`}
                 >
                     <Nav toprated={toprated} genre={genre}/>
                 </div>
-                <div className={`${showItem[4] ? "translate-y-[0] opacity-[1]" : "translate-y-[50px] opacity-0"} transition-all duration-[1.5s] w-full md:h-[38rem] relative md:mt-[8rem]`}
-                    ref={(element) => {itemRef.current[4] = element}}
+                <div className={`w-full md:h-[38rem] relative md:mt-[8rem]`}
                 >
                     <Nav animation={animation} genre={genre}/>
                 </div>
-                <div className={`${showItem[5] ? "translate-y-[0] opacity-[1]" : "translate-y-[50px] opacity-0"} transition-all duration-[1.5s] w-full md:h-[38rem] relative md:mt-[8rem]`}
-                    ref={(element) => {itemRef.current[5] = element}}
+                <div className={` w-full md:h-[38rem] relative md:mt-[8rem]`}
                 >
                     <Nav upcoming={upcoming} genre={genre}/>
                 </div>
